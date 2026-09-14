@@ -1,0 +1,25 @@
+{
+  "found": [
+    "header",
+    "nav",
+    "footer"
+  ],
+  "foundVia": {
+    "header": "<header> element",
+    "nav": "[class*=\"nav\" i]",
+    "footer": "<footer> element"
+  },
+  "cursor": {
+    "detected": true,
+    "element": "<span class=\"cursor isHover\">\n    <span class=\"cursor-move-outer\" style=\"transform: translate3d(193.816px, 50.9517px, 0px) rotate(14.729deg) scale(1, 1);\">\n        <span class=\"cursor-outer\"></span>\n    </span>\n    <span class=\"cursor-move-inner\" style=\"transform: translate3d(193.997px, 50.9993px, 0px);\">\n        <span class=\"cursor-inner\"></span>\n    </span>\n</span>",
+    "cssHints": [
+      "width:40px",
+      "height:40px",
+      "position:fixed",
+      "mix-blend-mode:normal",
+      "transition:opacity 0.1s cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "background:rgba(0, 0, 0, 0)"
+    ],
+    "hoverTargets": 0
+  }
+}

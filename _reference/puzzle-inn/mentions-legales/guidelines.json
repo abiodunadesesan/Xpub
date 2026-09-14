@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "version": "0.1.0",
+    "generator": "brand-extractor",
+    "extracted_at": "2026-09-13T13:50:12.611Z",
+    "source_url": "https://www.puzzle-inn.fr/mentions-legales/",
+    "viewport_width": 1440,
+    "status": "tokens-only seed",
+    "note": "TODO: descriptive/prose fields are out of scope for this tokens-only seed"
+  },
+  "profile": {
+    "brand_name": "TODO: descriptive/prose fields are out of scope for this tokens-only seed",
+    "source_url": "https://www.puzzle-inn.fr/mentions-legales/",
+    "copy_tone": "TODO: descriptive/prose fields are out of scope for this tokens-only seed",
+    "brand_signature": "TODO: descriptive/prose fields are out of scope for this tokens-only seed",
+    "visual_language": "TODO: descriptive/prose fields are out of scope for this tokens-only seed"
+  },
+  "tokens": {
+    "base": {
+      "colors": {},
+      "typography": {},
+      "spacing": {},
+      "radii": {},
+      "shadows": {},
+      "other": {}
+    },
+    "namespaced": {
+      "wp": {
+        "colors": {
+          "--wp-block-synced-color": "#7a00df",
+          "--wp-block-synced-color--rgb": "122,0,223",
+          "--wp-bound-block-color": "var(--wp-block-synced-color)",
+          "--wp-editor-canvas-background": "#ddd",
+          "--wp-admin-theme-color": "#007cba",
+          "--wp-admin-theme-color--rgb": "0,124,186",
+          "--wp-admin-theme-color-darker-10": "#006ba1",
+          "--wp-admin-theme-color-darker-10--rgb": "0,107,160.5",
+          "--wp-admin-theme-color-darker-20": "#005a87",
+          "--wp-admin-theme-color-darker-20--rgb": "0,90,135",
+          "--wp-admin-border-width-focus": "1.5px"
+        },
+        "typography": {
+          "--wp--preset--font-size--normal": "16px",
+          "--wp--preset--font-size--huge": "42px"
+        },
+        "spacing": {},
+        "radii": {},
+        "shadows": {},
+        "other": {
+          "--wp-internal-comment": "\"Placeholder for wp_hoist_late_printed_styles() to replace with the global-styles printed at wp_footer.\""
+        }
+      }
+    }
+  },
+  "type_scale": [
+    {
+      "selector": "h1",
+      "found": true,
+      "styles": {
+        "font-family": "NeoNeon",
+        "font-size": "55px",
+        "font-weight": "700",
+        "line-height": "65.0001px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "text-transform": "none",
+        "margin-top": "0px",
+        "margin-bottom": "0px"
+      }
+    },
+    {
+      "selector": "h2",
+      "found": true,
+      "styles": {
+        "font-family": "Invasion2000",
+        "font-size": "24px",
+        "font-weight": "700",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(38, 185, 231)",
+        "text-transform": "none",
+        "margin-top": "40px",
+        "margin-bottom": "20px"
+      }
+    },
+    {
+      "selector": "p",
+      "found": false
+    },
+    {
+      "selector": "body",
+      "found": true,
+      "styles": {
+        "font-family": "Ubuntu, Helvetica, sans-serif",
+        "font-size": "15px",
+        "font-weight": "400",
+        "line-height": "22px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "text-transform": "none",
+        "margin-top": "0px",
+        "margin-bottom": "0px"
+      }
+    },
+    {
+      "selector": "button",
+      "found": false
+    },
+    {
+      "selector": ".btn",
+      "found": false
+    }
+  ],
+  "layout": "TODO: descriptive/prose fields are out of scope for this tokens-only seed",
+  "interactions": "TODO: descriptive/prose fields are out of scope for this tokens-only seed",
+  "sections": "TODO: descriptive/prose fields are out of scope for this tokens-only seed"
+}

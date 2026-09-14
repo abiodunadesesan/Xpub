@@ -1,0 +1,704 @@
+[
+  {
+    "url": "https://www.puzzle-inn.fr/",
+    "mimeType": "text/html",
+    "resourceType": "Document",
+    "status": 200,
+    "size": 22954,
+    "timing": {
+      "startMs": 10,
+      "endMs": 441,
+      "durationMs": 431
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/cache/min/1/wp-content/themes/puzzle/assets/css/main.css?ver=1788278387",
+    "mimeType": "text/css",
+    "resourceType": "Stylesheet",
+    "status": 200,
+    "size": 12590,
+    "timing": {
+      "startMs": 432,
+      "endMs": 543,
+      "durationMs": 111
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-includes/js/jquery/jquery.min.js?ver=3.7.1",
+    "mimeType": "application/javascript",
+    "resourceType": "Script",
+    "status": 200,
+    "size": 30617,
+    "timing": {
+      "startMs": 432,
+      "endMs": 652,
+      "durationMs": 220
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1",
+    "mimeType": "application/javascript",
+    "resourceType": "Script",
+    "status": 200,
+    "size": 5111,
+    "timing": {
+      "startMs": 432,
+      "endMs": 532,
+      "durationMs": 100
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.googletagmanager.com/gtag/js?id=UA-151897283-1",
+    "mimeType": "application/javascript",
+    "resourceType": "Script",
+    "status": 200,
+    "size": 135183,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2957,
+      "durationMs": 2525
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/cover.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 425862,
+    "timing": {
+      "startMs": 432,
+      "endMs": 1066,
+      "durationMs": 634
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-salon-multijoueur.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 292892,
+    "timing": {
+      "startMs": 432,
+      "endMs": 1416,
+      "durationMs": 984
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-coin-solo.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 304393,
+    "timing": {
+      "startMs": 432,
+      "endMs": 1449,
+      "durationMs": 1017
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-jeux-tir.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 191357,
+    "timing": {
+      "startMs": 432,
+      "endMs": 1817,
+      "durationMs": 1385
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-jeux-recents.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 296205,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2081,
+      "durationMs": 1649
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-espace-binouze.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 347643,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2381,
+      "durationMs": 1949
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-nes.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1461,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2877,
+      "durationMs": 2445
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-super-nes.png",
+    "mimeType": "image/png",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 7955,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2908,
+      "durationMs": 2476
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-master-system.png",
+    "mimeType": "image/png",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 21415,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2910,
+      "durationMs": 2478
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-playstation.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1156,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2915,
+      "durationMs": 2483
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-nintendo64.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1290,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2960,
+      "durationMs": 2528
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-gamecube.png",
+    "mimeType": "image/png",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 19188,
+    "timing": {
+      "startMs": 432,
+      "endMs": 3118,
+      "durationMs": 2686
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-playstation2.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 688,
+    "timing": {
+      "startMs": 432,
+      "endMs": 2965,
+      "durationMs": 2533
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-wii.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 594,
+    "timing": {
+      "startMs": 432,
+      "endMs": 3142,
+      "durationMs": 2710
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-xbox-360.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 2468,
+    "timing": {
+      "startMs": 432,
+      "endMs": 3143,
+      "durationMs": 2711
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-ps4.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1313,
+    "timing": {
+      "startMs": 432,
+      "endMs": 3144,
+      "durationMs": 2712
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/consoles/logo-steam.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1048,
+    "timing": {
+      "startMs": 432,
+      "endMs": 3145,
+      "durationMs": 2713
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-inn-carte.png",
+    "mimeType": "image/png",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 626336,
+    "timing": {
+      "startMs": 432,
+      "endMs": 3515,
+      "durationMs": 3083
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-team.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 762867,
+    "timing": {
+      "startMs": 432,
+      "endMs": 3968,
+      "durationMs": 3536
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-instagram1.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 176458,
+    "timing": {
+      "startMs": 432,
+      "endMs": 3848,
+      "durationMs": 3416
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-instagram7.png",
+    "mimeType": "image/png",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 10964,
+    "timing": {
+      "startMs": 432,
+      "endMs": 4272,
+      "durationMs": 3840
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-instagram5.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 72765,
+    "timing": {
+      "startMs": 432,
+      "endMs": 4107,
+      "durationMs": 3675
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-instagram6.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 61741,
+    "timing": {
+      "startMs": 432,
+      "endMs": 4272,
+      "durationMs": 3840
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-instagram3.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 73090,
+    "timing": {
+      "startMs": 432,
+      "endMs": 4273,
+      "durationMs": 3841
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/puzzle-instagram4.jpg",
+    "mimeType": "image/jpeg",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 85317,
+    "timing": {
+      "startMs": 441,
+      "endMs": 4274,
+      "durationMs": 3833
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/map.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 14662,
+    "timing": {
+      "startMs": 441,
+      "endMs": 4359,
+      "durationMs": 3918
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/plugins/searchwp-live-ajax-search/assets/javascript/dist/script.min.js?ver=1.8.8",
+    "mimeType": "application/javascript",
+    "resourceType": "Script",
+    "status": 200,
+    "size": 3944,
+    "timing": {
+      "startMs": 441,
+      "endMs": 1610,
+      "durationMs": 1169
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/js/app.min.js?ver=5c6d4f",
+    "mimeType": "application/javascript",
+    "resourceType": "Script",
+    "status": 200,
+    "size": 672197,
+    "timing": {
+      "startMs": 441,
+      "endMs": 2879,
+      "durationMs": 2438
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js",
+    "mimeType": "application/javascript",
+    "resourceType": "Script",
+    "status": 200,
+    "size": 3292,
+    "timing": {
+      "startMs": 441,
+      "endMs": 2348,
+      "durationMs": 1907
+    },
+    "failed": false
+  },
+  {
+    "url": "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201%201'%3E%3C/svg%3E",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 0,
+    "timing": {
+      "startMs": 933,
+      "endMs": 933,
+      "durationMs": 0
+    },
+    "failed": false
+  },
+  {
+    "url": "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 0,
+    "timing": {
+      "startMs": 933,
+      "endMs": 933,
+      "durationMs": 0
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/stars/stars1.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1077,
+    "timing": {
+      "startMs": 947,
+      "endMs": 1648,
+      "durationMs": 701
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/stars/stars2.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 982,
+    "timing": {
+      "startMs": 947,
+      "endMs": 4635,
+      "durationMs": 3688
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/stars/stars3.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1176,
+    "timing": {
+      "startMs": 947,
+      "endMs": 4635,
+      "durationMs": 3688
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/stars/stars4.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1087,
+    "timing": {
+      "startMs": 947,
+      "endMs": 4635,
+      "durationMs": 3688
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/stars/stars5.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1029,
+    "timing": {
+      "startMs": 947,
+      "endMs": 4635,
+      "durationMs": 3688
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/stars/stars6.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 799,
+    "timing": {
+      "startMs": 947,
+      "endMs": 4635,
+      "durationMs": 3688
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/stars/stars7.svg",
+    "mimeType": "image/svg+xml",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 1103,
+    "timing": {
+      "startMs": 947,
+      "endMs": 4636,
+      "durationMs": 3689
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/fonts/Invasion2000.woff2",
+    "mimeType": "font/woff2",
+    "resourceType": "Font",
+    "status": 200,
+    "size": 10051,
+    "timing": {
+      "startMs": 947,
+      "endMs": 1608,
+      "durationMs": 661
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/fonts/icomoon.woff?-4yq2oc",
+    "mimeType": "font/woff",
+    "resourceType": "Font",
+    "status": 200,
+    "size": 2044,
+    "timing": {
+      "startMs": 947,
+      "endMs": 1609,
+      "durationMs": 662
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/fonts/Ubuntu-Regular.woff2",
+    "mimeType": "font/woff2",
+    "resourceType": "Font",
+    "status": 200,
+    "size": 117002,
+    "timing": {
+      "startMs": 947,
+      "endMs": 1619,
+      "durationMs": 672
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/fonts/Neoneon.woff2",
+    "mimeType": "font/woff2",
+    "resourceType": "Font",
+    "status": 200,
+    "size": 12619,
+    "timing": {
+      "startMs": 947,
+      "endMs": 1610,
+      "durationMs": 663
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/fonts/Ubuntu-Bold.woff2",
+    "mimeType": "font/woff2",
+    "resourceType": "Font",
+    "status": 200,
+    "size": 102466,
+    "timing": {
+      "startMs": 947,
+      "endMs": 1642,
+      "durationMs": 695
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/gifs/mario.gif",
+    "mimeType": "image/gif",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 68019,
+    "timing": {
+      "startMs": 3146,
+      "endMs": 4360,
+      "durationMs": 1214
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/gifs/streets-of-rage2.gif",
+    "mimeType": "image/gif",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 37986,
+    "timing": {
+      "startMs": 3146,
+      "endMs": 4364,
+      "durationMs": 1218
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/img/gifs/mortal-kombat.gif",
+    "mimeType": "image/gif",
+    "resourceType": "Image",
+    "status": 200,
+    "size": 441819,
+    "timing": {
+      "startMs": 3146,
+      "endMs": 4635,
+      "durationMs": 1489
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.googletagmanager.com/gtag/js?id=G-TJ2DZEH95E&cx=c&gtm=4e6992",
+    "mimeType": "application/javascript",
+    "resourceType": "Script",
+    "status": 200,
+    "size": 159676,
+    "timing": {
+      "startMs": 3667,
+      "endMs": 4918,
+      "durationMs": 1251
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.google-analytics.com/analytics.js",
+    "mimeType": "text/javascript",
+    "resourceType": "Script",
+    "status": 200,
+    "size": 21409,
+    "timing": {
+      "startMs": 3667,
+      "endMs": 4883,
+      "durationMs": 1216
+    },
+    "failed": false
+  },
+  {
+    "url": "https://www.puzzle-inn.fr/wp-content/themes/puzzle/assets/js/bodymovin/anim-logo.json",
+    "mimeType": "application/json",
+    "resourceType": "XHR",
+    "status": 200,
+    "size": 7602,
+    "timing": {
+      "startMs": 4270,
+      "endMs": 4676,
+      "durationMs": 406
+    },
+    "failed": false
+  }
+]

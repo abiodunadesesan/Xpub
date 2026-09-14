@@ -1,108 +1,120 @@
 "use client";
 
-import React from "react";
-import { Sparkles, Calendar, Beer, ChevronDown, Flame, ShieldCheck } from "lucide-react";
-import { trackEvent } from "./analytics-provider";
+import Image from "next/image";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
+import { Reveal } from "@/components/reveal";
+import { Skeleton } from "@/components/skeleton";
+import { useVenueMedia } from "@/lib/use-venue-media";
+import { useI18n } from "@/lib/i18n/provider";
 
-interface HeroSectionProps {
-  onBookClick: () => void;
-  onMenuClick: () => void;
-  onAiClick: () => void;
-}
+export function HeroSection() {
+  const { t } = useI18n();
+  const { heroImage, isLoading } = useVenueMedia();
+  const imageSrc = heroImage?.url ?? "/images/cover.jpg";
+  const reduce = useReducedMotion();
+  const stageRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: stageRef,
+    offset: ["start start", "end start"],
+  });
+  const mediaY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 80]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 40]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, reduce ? 1 : 0.35]);
 
-export const HeroSection: React.FC<HeroSectionProps> = ({
-  onBookClick,
-  onMenuClick,
-  onAiClick,
-}) => {
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center items-center text-center px-4 pt-20 pb-16 overflow-hidden bg-pub-dark border-b border-pub-gold/20">
-      {/* Background Ambient Glow Effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pub-amber/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-10 right-10 w-[300px] h-[300px] bg-pub-yellow/10 rounded-full blur-[100px] pointer-events-none" />
+    <section
+      id="top"
+      ref={stageRef}
+      className="hero-stage relative z-10 min-h-[100svh] overflow-hidden"
+    >
+      <div aria-hidden className="hero-slash" />
 
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#27272a15_1px,transparent_1px),linear-gradient(to_bottom,#27272a15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+      <motion.span
+        aria-hidden
+        className="arcade-star absolute left-[46%] top-[34%] z-20 hidden text-[var(--pi-yellow)] lg:block"
+        animate={reduce ? undefined : { opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        ✦
+      </motion.span>
+      <span
+        aria-hidden
+        className="absolute left-[48%] top-[42%] z-20 hidden h-2 w-2 rounded-full bg-[var(--pi-yellow)] lg:block"
+      />
+      <span
+        aria-hidden
+        className="absolute left-[49.5%] top-[48%] z-20 hidden h-1.5 w-1.5 rounded-full bg-[var(--pi-cyan)] lg:block"
+      />
+      <span aria-hidden className="arcade-star absolute left-[45%] top-[55%] z-20 hidden text-white/75 lg:block">
+        ✦
+      </span>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
-        {/* Live Status Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pub-card/90 border border-pub-gold/30 text-pub-yellow text-xs font-semibold uppercase tracking-widest shadow-lg shadow-pub-amber/10 mb-8 backdrop-blur-md animate-pulse-slow">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-          <span className="w-2 h-2 rounded-full bg-emerald-500" />
-          <span>Open Now • 12 Craft Taps Flowing</span>
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-7xl items-center gap-8 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-12 lg:gap-0 lg:px-8 lg:pb-20 lg:pt-24">
+        <motion.div style={{ y: copyY, opacity: copyOpacity }} className="relative z-20 lg:col-span-6">
+          <Reveal className="max-w-xl lg:max-w-none" y={28}>
+            <div>
+              <motion.p
+                className="font-display text-[clamp(3rem,9vw,5.2rem)] font-semibold leading-[0.9] tracking-[0.12em] text-white"
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {t.hero.logo}
+              </motion.p>
+            </div>
+
+            <h1 className="mt-10 font-display leading-[0.92]">
+              <span className="block text-[clamp(1.85rem,5vw,3.2rem)] tracking-[0.08em] text-[var(--gold)]">
+                {t.hero.headlineTop}
+              </span>
+              <span className="mt-1 block text-[clamp(1.85rem,5vw,3.2rem)] tracking-[0.08em] text-white">
+                {t.hero.headlineBottom}
+              </span>
+            </h1>
+
+            <div className="mt-7 max-w-md space-y-4 font-serif text-lg leading-8 text-white/85">
+              {t.hero.paragraphs.map((p) => (
+                <p key={p.slice(0, 24)}>{p}</p>
+              ))}
+            </div>
+
+            <a
+              href="#about"
+              data-cursor
+              className="glass-btn mt-8 inline-flex min-h-12 items-center px-7 text-sm transition hover:-translate-y-0.5"
+            >
+              {t.hero.cta}
+            </a>
+          </Reveal>
+        </motion.div>
+
+        <div className="relative z-10 lg:col-span-6 lg:h-[min(78vh,720px)]">
+          <motion.div style={{ y: mediaY }} className="h-full">
+            <Reveal delay={0.12} className="h-full" x={40} y={20}>
+              <div className="hero-cover relative mx-auto h-[min(62vh,520px)] w-full max-w-lg lg:absolute lg:-right-6 lg:top-0 lg:mx-0 lg:h-full lg:max-w-none lg:w-[118%]">
+                <div className="hero-cover-skew absolute inset-0">
+                  <div className="hero-cover-media absolute -inset-[14%]">
+                    {isLoading && !heroImage ? (
+                      <Skeleton className="h-full w-full" />
+                    ) : (
+                      <Image
+                        src={imageSrc}
+                        alt="X Pub Girne neon"
+                        fill
+                        priority
+                        sizes="(max-width: 1024px) 90vw, 50vw"
+                        unoptimized={imageSrc.startsWith("http")}
+                        className="object-cover object-[58%_40%]"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </motion.div>
         </div>
-
-        {/* Main Title */}
-        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-6 font-sans">
-          THE OBSIDIAN{" "}
-          <span className="bg-gradient-to-r from-pub-yellow via-pub-amber to-amber-500 bg-clip-text text-transparent drop-shadow-sm">
-            XPUB
-          </span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className="max-w-2xl mx-auto text-lg sm:text-xl text-zinc-400 font-normal leading-relaxed mb-10">
-          Where artisanal craft brewing meets dry-aged gastronomy. Experience real-time tap syncing, transactional table reservations, and an integrated AI sommelier.
-        </p>
-
-        {/* CTA Button Group */}
-        <div className="flex flex-wrap justify-center items-center gap-4 mb-16">
-          <button
-            onClick={() => {
-              trackEvent("click_hero_book");
-              onBookClick();
-            }}
-            className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-pub-yellow to-pub-amber text-zinc-950 font-bold text-base shadow-xl shadow-pub-amber/20 hover:shadow-pub-yellow/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
-          >
-            <Calendar className="w-5 h-5 text-zinc-950" />
-            <span>Reserve a Table</span>
-          </button>
-
-          <button
-            onClick={() => {
-              trackEvent("click_hero_menu");
-              onMenuClick();
-            }}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-pub-card hover:bg-pub-surface border border-zinc-800 hover:border-pub-gold/50 text-white font-semibold text-base transition-all duration-200"
-          >
-            <Beer className="w-5 h-5 text-pub-yellow" />
-            <span>View Live Taps & Menu</span>
-          </button>
-
-          <button
-            onClick={() => {
-              trackEvent("click_hero_ai");
-              onAiClick();
-            }}
-            className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-pub-amber/30 text-pub-yellow text-sm font-medium transition-all duration-200"
-          >
-            <Sparkles className="w-4 h-4 text-pub-yellow animate-spin" style={{ animationDuration: "6s" }} />
-            <span>Ask AI Sommelier</span>
-          </button>
-        </div>
-
-        {/* Feature Badges Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto pt-6 border-t border-zinc-800/80">
-          <div className="flex items-center justify-center gap-3 p-3 rounded-lg bg-zinc-900/40 border border-zinc-800/50">
-            <Flame className="w-5 h-5 text-pub-amber" />
-            <span className="text-sm font-medium text-zinc-300">45-Day Dry Aged Wagyu</span>
-          </div>
-          <div className="flex items-center justify-center gap-3 p-3 rounded-lg bg-zinc-900/40 border border-zinc-800/50">
-            <Beer className="w-5 h-5 text-pub-yellow" />
-            <span className="text-sm font-medium text-zinc-300">Real-Time Tap Syncing</span>
-          </div>
-          <div className="flex items-center justify-center gap-3 p-3 rounded-lg bg-zinc-900/40 border border-zinc-800/50">
-            <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <span className="text-sm font-medium text-zinc-300">Zero Overbooking Engine</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-zinc-500 text-xs">
-        <span>Scroll to Explore</span>
-        <ChevronDown className="w-4 h-4 animate-bounce text-pub-gold" />
       </div>
     </section>
   );
-};
+}
