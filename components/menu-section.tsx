@@ -4,21 +4,26 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Reveal, RevealGroup } from "@/components/reveal";
-import { SplitHeadline } from "@/components/split-headline";
+import { SectionHeading } from "@/components/section-heading";
 import { useI18n } from "@/lib/i18n/provider";
-import { useVenueMedia } from "@/lib/use-venue-media";
+import { useVenueMedia } from "@/lib/venue-media";
 
 type TabId = "cocktails" | "beer" | "nights";
 
 export function MenuSection() {
   const { t } = useI18n();
-  const { menuImages, menuVideos } = useVenueMedia();
+  const { menuPacks, menuVideos } = useVenueMedia();
   const [tab, setTab] = useState<TabId>("cocktails");
   const items = t.menu.categories[tab];
+
   const tabIndex = Math.max(0, t.menu.tabs.findIndex((entry) => entry.id === tab));
-  const cover = menuImages[tabIndex] ?? menuImages[0];
-  const sideStills = menuImages.filter((_, i) => i !== tabIndex).slice(0, 3);
-  const pourVideo = menuVideos[0];
+  // Each tab owns its pack, so switching visibly replaces every tile — and so
+  // the strip is only ever drinks: `drink-cocktail-*` on Cocktails,
+  // `drink-bar-*` on Nights. A tab short on its own photos borrows from the
+  // other drinks rather than reaching for a guest or a room shot.
+  const pack = menuPacks[tabIndex] ?? menuPacks[0];
+  const stills = pack?.stills ?? [];
+  const clip = pack?.video ?? menuVideos[0];
 
   return (
     <section id="menu" className="relative z-10 overflow-hidden py-20 sm:py-28">
@@ -27,55 +32,68 @@ export function MenuSection() {
           <div className="pointer-events-none absolute -right-10 top-0 h-64 w-64 rounded-full bg-[var(--gold)]/10 blur-3xl" />
 
           <Reveal>
-            <p className="font-label text-[11px] text-[var(--gold)]">{t.menu.eyebrow}</p>
-            <div className="mt-3">
-              <SplitHeadline first={t.menu.titleTop} second={t.menu.titleBottom || t.nav.menu} />
-            </div>
+            <SectionHeading
+              eyebrow={t.menu.eyebrow}
+              titleTop={t.menu.titleTop}
+              titleBottom={t.menu.titleBottom || t.nav.menu}
+            />
           </Reveal>
 
-          {/* Compact media strip — avoids a tall left column leaving empty right space */}
-          <div className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {pourVideo?.url ? (
-              <div className="glass-card relative col-span-2 aspect-[16/10] overflow-hidden sm:col-span-2">
+          {/*
+            Media strip: the wide tile is the active tab's cover and the square
+            tiles are its stills, so the strip is a live preview of whichever
+            category is selected. The pour clip stays put, re-postered with the
+            active cover so it reads as part of the same set.
+          */}
+          <div className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-6">
+            {pack?.cover?.url ? (
+              <div className="glass-card relative col-span-2 aspect-[16/10] overflow-hidden sm:col-span-4">
+                <Image
+                  key={pack.cover.url}
+                  src={pack.cover.url}
+                  alt={`X Pub ${tab} cover`}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 640px) 100vw, 60vw"
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
+
+            {stills.map((still) => (
+              <div
+                key={still._id}
+                className="glass-card relative col-span-1 aspect-square overflow-hidden sm:col-span-2"
+              >
+                <Image
+                  src={still.url}
+                  alt={`X Pub ${tab}`}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+
+            {clip?.url ? (
+              <div className="glass-card relative col-span-2 aspect-square overflow-hidden sm:col-span-2">
                 <video
+                  // Remounts when the tab swaps the clip, so it autoplays the
+                  // new one instead of holding the previous tab's frame.
+                  key={clip.url}
                   className="h-full w-full object-cover"
-                  src={pourVideo.url}
+                  src={clip.url}
                   muted
                   autoPlay
                   loop
                   playsInline
                   preload="metadata"
-                  poster={cover?.url}
-                  aria-label="X Pub drinks pour"
-                />
-              </div>
-            ) : cover?.url ? (
-              <div className="glass-card relative col-span-2 aspect-[16/10] overflow-hidden">
-                <Image
-                  src={cover.url}
-                  alt="X Pub drinks"
-                  fill
-                  loading="lazy"
-                  unoptimized
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  poster={pack?.cover?.url}
+                  aria-label={`X Pub ${tab} drinks`}
                 />
               </div>
             ) : null}
-
-            {sideStills.map((still) => (
-              <div key={still._id} className="glass-card relative aspect-square overflow-hidden">
-                <Image
-                  src={still.url}
-                  alt="X Pub drink"
-                  fill
-                  loading="lazy"
-                  unoptimized
-                  className="object-cover"
-                  sizes="160px"
-                />
-              </div>
-            ))}
           </div>
 
           <Reveal delay={0.06} className="mt-8 flex flex-wrap gap-2">
@@ -85,6 +103,7 @@ export function MenuSection() {
                 type="button"
                 data-cursor
                 onClick={() => setTab(entry.id)}
+                aria-pressed={tab === entry.id}
                 className={`px-4 py-2.5 font-label text-[11px] transition ${
                   tab === entry.id
                     ? "bg-[var(--gold)] text-black"

@@ -53,7 +53,7 @@ export function LanguageSwitcher() {
                 }}
                 className={`flex w-full items-center justify-between px-3 py-2 text-left font-body text-sm transition ${
                   item.code === locale
-                    ? "bg-[var(--pi-yellow)] text-black"
+                    ? "bg-[var(--yellow)] text-black"
                     : "text-white/85 hover:bg-white/10"
                 }`}
               >

@@ -14,27 +14,33 @@ import { SiteLoader } from "@/components/site-loader";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Starfield } from "@/components/starfield";
 import { VisitSection } from "@/components/visit-section";
+import { AudioPlayerProvider } from "@/lib/audio-player";
+import { VenueMediaProvider } from "@/lib/venue-media";
 
 export default function Home() {
   return (
-    <SmoothScroll>
-      <SiteLoader />
-      <CustomCursor />
-      <BackgroundMusic />
-      <Starfield />
-      <SiteHeader />
-      <main className="relative z-10 flex-1">
-        <HeroSection />
-        <AboutSection />
-        <ExperienceSection />
-        <MenuSection />
-        <GallerySection />
-        <MusicSection />
-        <BlogSection />
-        <ReviewsSection />
-        <VisitSection />
-      </main>
-      <SiteFooter />
-    </SmoothScroll>
+    <AudioPlayerProvider>
+      <VenueMediaProvider>
+        <SmoothScroll>
+          <SiteLoader />
+          <CustomCursor />
+          <BackgroundMusic />
+          <Starfield />
+          <SiteHeader />
+          <main className="relative z-10 flex-1">
+            <HeroSection />
+            <AboutSection />
+            <ExperienceSection />
+            <MenuSection />
+            <GallerySection />
+            <MusicSection />
+            <BlogSection />
+            <ReviewsSection />
+            <VisitSection />
+          </main>
+          <SiteFooter />
+        </SmoothScroll>
+      </VenueMediaProvider>
+    </AudioPlayerProvider>
   );
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Cinzel, Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { LanguageProvider } from "@/lib/i18n/provider";
 
 const cinzel = Cinzel({
@@ -43,9 +42,7 @@ export default function RootLayout({
       className={`h-full antialiased ${cinzel.variable} ${cormorant.variable} ${dmSans.variable}`}
     >
       <body className="min-h-full flex flex-col font-body">
-        <ConvexClientProvider>
-          <LanguageProvider>{children}</LanguageProvider>
-        </ConvexClientProvider>
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

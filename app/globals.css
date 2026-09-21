@@ -1,14 +1,6 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Neoneon";
-  src: url("/fonts/neoneon.woff2") format("woff2");
-  font-display: swap;
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Invasion2000";
   src: url("/fonts/invasion2000.woff2") format("woff2");
   font-display: swap;
@@ -33,25 +25,19 @@
 }
 
 :root {
-  --pi-navy: #0a0a0a;
-  --pi-deep: #050505;
-  --pi-blue: #141414;
-  --pi-cyan: #b88e5d;
-  --pi-yellow: #fae900;
+  /* Brand accents — a single gold/yellow pair, one naming scheme. */
   --gold: #b88e5d;
-  --gold-soft: rgba(184, 142, 93, 0.22);
-  --glass: rgba(18, 18, 18, 0.55);
+  --yellow: #fae900;
+
+  /* Surfaces */
   --glass-border: rgba(255, 255, 255, 0.14);
-  --pi-ink: #ffffff;
-  --pi-muted: #a8a29e;
-  --background: var(--pi-deep);
-  --foreground: var(--pi-ink);
+  --background: #050505;
+  --foreground: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-neon: "Neoneon", sans-serif;
   --font-display: var(--font-cinzel), "Cinzel", serif;
   --font-body: var(--font-dm), "DM Sans", Helvetica, sans-serif;
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
@@ -196,12 +182,8 @@ body.cursor-ready * {
    (Cursor IDE / macOS accessibility often enables this and was hiding the cursor.) */
 
 ::selection {
-  background: var(--pi-yellow);
+  background: var(--yellow);
   color: #000;
-}
-
-.font-neon {
-  font-family: var(--font-neon);
 }
 
 .font-display {
@@ -267,6 +249,41 @@ body.cursor-ready * {
     0 28px 70px rgba(184, 142, 93, 0.14);
 }
 
+/* Seek bar for the music corner: a hairline track with a gold knob, so the
+   position is readable at a glance rather than a native slider's default look. */
+.music-scrub {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+}
+
+.music-scrub:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.music-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  background: var(--gold);
+  border: 2px solid rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 14px rgba(184, 142, 93, 0.55);
+}
+
+.music-scrub::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.45);
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: 0 0 14px rgba(184, 142, 93, 0.55);
+}
+
 .glass-btn {
   background-color: #b88e5d;
   background-image: linear-gradient(135deg, rgba(184, 142, 93, 0.98), rgba(250, 233, 0, 0.88));
@@ -302,10 +319,6 @@ body.cursor-ready * {
 
 .skew-wide {
   transform: skewY(-8deg);
-}
-
-.skew-shape {
-  transform: skew(-12deg, -4deg);
 }
 
 .skew-footer {
@@ -361,10 +374,6 @@ body.cursor-ready * {
   filter: drop-shadow(0 0 8px rgba(250, 233, 0, 0.55));
 }
 
-.hero-frame {
-  clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
-}
-
 .star-dot {
   opacity: 0.45;
   animation: twinkle 3.8s ease-in-out infinite;
@@ -379,19 +388,6 @@ body.cursor-ready * {
   50% {
     opacity: 0.85;
     transform: scale(1.15);
-  }
-}
-
-.reveal-in {
-  opacity: 0;
-  transform: translateY(24px);
-  animation: reveal-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes reveal-in {
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -415,150 +411,6 @@ body.cursor-ready * {
   }
 }
 
-.text-stroke-white {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.92);
-}
-
-.text-stroke-dark {
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.75);
-}
-
-.pi-btn {
-  background: linear-gradient(135deg, rgba(184, 142, 93, 0.98), rgba(250, 233, 0, 0.88));
-  color: #0a0a0a;
-  font-family: var(--font-label);
-  font-size: 0.85rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 600;
-  padding: 0.95rem 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
-  box-shadow: 0 12px 32px rgba(184, 142, 93, 0.32);
-}
-
-.pi-btn:hover {
-  filter: brightness(1.06);
-  transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(250, 233, 0, 0.28);
-}
-
-.neon-glow {
-  text-shadow:
-    0 0 8px rgba(250, 233, 0, 0.55),
-    0 0 24px rgba(250, 233, 0, 0.28),
-    2px 2px 0 rgba(0, 0, 0, 0.65);
-  animation: neon-pulse 3.2s ease-in-out infinite;
-}
-
-.neon-border {
-  box-shadow:
-    0 0 0 1px rgba(250, 233, 0, 0.35),
-    0 0 18px rgba(250, 233, 0, 0.2);
-}
-
-.neon-frame {
-  position: relative;
-}
-
-.neon-frame::after {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 0 0 0 1px rgba(250, 233, 0, 0.28), inset 0 0 28px rgba(250, 233, 0, 0.08);
-}
-
-@keyframes neon-pulse {
-  0%,
-  100% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(1.12);
-  }
-}
-
-body.konami-active {
-  --pi-yellow: #7dff4d;
-  --pi-cyan: #39ff14;
-  background:
-    radial-gradient(ellipse at 20% 10%, rgba(125, 255, 77, 0.16), transparent 40%),
-    radial-gradient(ellipse at 80% 30%, rgba(57, 255, 20, 0.1), transparent 35%),
-    linear-gradient(180deg, #020402 0%, #050805 45%, #000 100%);
-}
-
-body.konami-active::before {
-  content: "";
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 70;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.15) 0px,
-      rgba(0, 0, 0, 0.15) 1px,
-      transparent 2px,
-      transparent 4px
-    );
-  mix-blend-mode: multiply;
-  opacity: 0.55;
-}
-
-body.konami-active .font-display,
-body.konami-active .neon-glow {
-  animation: neon-pulse 1.1s ease-in-out infinite;
-}
-
-.konami-overlay {
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(4px);
-}
-
-.konami-scanlines {
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.35) 0px,
-      rgba(0, 0, 0, 0.35) 2px,
-      transparent 3px,
-      transparent 6px
-    ),
-    radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.55) 100%);
-}
-
-.panel-skew {
-  transform: skewY(-4deg);
-}
-
-.panel-unskew,
-.cta-unskew {
-  transform: skewY(4deg);
-}
-
-.panel-card-skew {
-  transform: skewY(-3deg);
-}
-
-.panel-card-skew .panel-unskew {
-  transform: skewY(3deg);
-}
-
-.cta-skew {
-  transform: skewY(-5deg);
-}
-
-.cta-skew .cta-unskew {
-  transform: skewY(5deg);
-}
-
-.frame-skew {
-  transform: skewY(-5deg);
-  transform-origin: center;
-}
-
 .map-tilt {
   transform: rotate(-4deg) skewX(-4deg);
   transform-origin: center;
@@ -578,7 +430,7 @@ body.konami-active .neon-glow {
 }
 
 .see-you-letter.is-lit {
-  color: var(--pi-yellow);
+  color: var(--yellow);
   -webkit-text-stroke-color: transparent;
   text-shadow:
     2px 2px 0 rgba(0, 0, 0, 0.9),
@@ -592,15 +444,8 @@ body.konami-active .neon-glow {
   }
 
   .star-dot,
-  .reveal-in,
-  .neon-glow,
   .skeleton-shimmer {
     animation: none;
-  }
-
-  .reveal-in {
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -612,7 +457,6 @@ body.konami-active .neon-glow {
 }
 
 @media (max-width: 767px) {
-  .hero-frame,
   .about-media {
     clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
   }
@@ -626,12 +470,6 @@ body.konami-active .neon-glow {
     transform: none;
   }
 
-  .panel-skew,
-  .panel-unskew,
-  .panel-card-skew,
-  .cta-skew,
-  .cta-unskew,
-  .frame-skew,
   .map-tilt {
     transform: none;
   }

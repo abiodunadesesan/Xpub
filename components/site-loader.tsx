@@ -3,9 +3,9 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { HeroSkeleton } from "@/components/skeleton";
-import { useVenueMedia } from "@/lib/use-venue-media";
+import { useVenueMedia } from "@/lib/venue-media";
 
-/** Skeleton shell while first paint / Convex media hydrate — replaces arcade intro. */
+/** Skeleton shell while first paint / media hydrate — replaces arcade intro. */
 export function SiteLoader() {
   const reduce = useReducedMotion();
   const { isLoading, heroImage } = useVenueMedia();

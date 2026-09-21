@@ -10,7 +10,7 @@ export function Starfield() {
         left: `${(i * 37) % 100}%`,
         top: `${(i * 53) % 100}%`,
         size: i % 5 === 0 ? 4 : i % 3 === 0 ? 3 : 2,
-        color: i % 3 === 0 ? "var(--pi-yellow)" : "rgba(255,255,255,0.55)",
+        color: i % 3 === 0 ? "var(--yellow)" : "rgba(255,255,255,0.55)",
         delay: `${(i % 7) * 0.35}s`,
       })),
     [],

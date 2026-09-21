@@ -4,9 +4,9 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Reveal } from "@/components/reveal";
-import { SplitHeadline } from "@/components/split-headline";
+import { SectionHeading } from "@/components/section-heading";
 import { useI18n } from "@/lib/i18n/provider";
-import { useVenueMedia } from "@/lib/use-venue-media";
+import { useVenueMedia } from "@/lib/venue-media";
 
 export function ExperienceSection() {
   const { t } = useI18n();
@@ -21,13 +21,11 @@ export function ExperienceSection() {
     <section id="experience" className="relative z-10 overflow-hidden py-20 sm:py-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <p className="font-label text-[11px] text-[var(--gold)]">{t.experiences.eyebrow}</p>
-          <div className="mt-3">
-            <SplitHeadline
-              first={t.experiences.titleTop}
-              second={t.experiences.titleBottom}
-            />
-          </div>
+          <SectionHeading
+            eyebrow={t.experiences.eyebrow}
+            titleTop={t.experiences.titleTop}
+            titleBottom={t.experiences.titleBottom}
+          />
         </Reveal>
 
         <Reveal delay={0.08} className="mt-10 flex flex-wrap gap-2 sm:gap-3">
@@ -64,7 +62,6 @@ export function ExperienceSection() {
                     src={cover.url}
                     alt={item.title}
                     fill
-                    unoptimized
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
@@ -104,7 +101,6 @@ export function ExperienceSection() {
                           src={thumb.url}
                           alt={bullet}
                           fill
-                          unoptimized
                           className="object-cover transition duration-700 group-hover:scale-105"
                           sizes="(max-width: 768px) 50vw, 22vw"
                         />

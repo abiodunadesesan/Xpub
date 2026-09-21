@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
 import { Skeleton } from "@/components/skeleton";
-import { SplitHeadline } from "@/components/split-headline";
+import { SectionHeading } from "@/components/section-heading";
 import { useI18n } from "@/lib/i18n/provider";
-import { useVenueMedia } from "@/lib/use-venue-media";
+import { useVenueMedia } from "@/lib/venue-media";
 
 export function AboutSection() {
   const { t } = useI18n();
@@ -26,10 +26,11 @@ export function AboutSection() {
 
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8">
         <Reveal className="max-w-2xl">
-          <p className="font-label text-[11px] text-[var(--gold)]">{t.about.eyebrow}</p>
-          <div className="mt-3">
-            <SplitHeadline first={t.about.titleTop} second={t.about.titleBottom} />
-          </div>
+          <SectionHeading
+            eyebrow={t.about.eyebrow}
+            titleTop={t.about.titleTop}
+            titleBottom={t.about.titleBottom}
+          />
           <div className="mt-8 space-y-4 font-serif text-lg leading-8 text-white/85">
             {t.about.paragraphs.map((p) => (
               <p key={p.slice(0, 28)}>{p}</p>
@@ -50,7 +51,7 @@ export function AboutSection() {
                 alt="X Pub atmosphere"
                 width={800}
                 height={900}
-                unoptimized
+                sizes="(max-width: 1024px) 90vw, 40vw"
                 className="aspect-[4/5] w-full object-cover"
               />
             ) : (

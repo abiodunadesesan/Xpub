@@ -1,7 +1,7 @@
 "use client";
 
 import { Reveal, RevealGroup } from "@/components/reveal";
-import { SplitHeadline } from "@/components/split-headline";
+import { SectionHeading } from "@/components/section-heading";
 import { useI18n } from "@/lib/i18n/provider";
 
 export function ReviewsSection() {
@@ -11,10 +11,11 @@ export function ReviewsSection() {
     <section id="reviews" className="relative z-10 overflow-hidden py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mb-10 max-w-2xl">
-          <p className="font-label text-[11px] text-[var(--gold)]">{t.reviews.eyebrow}</p>
-          <div className="mt-3">
-            <SplitHeadline first={t.reviews.titleTop} second={t.reviews.titleBottom} />
-          </div>
+          <SectionHeading
+            eyebrow={t.reviews.eyebrow}
+            titleTop={t.reviews.titleTop}
+            titleBottom={t.reviews.titleBottom}
+          />
           <p className="mt-4 font-serif text-base text-white/60">{t.reviews.summary}</p>
         </Reveal>
 

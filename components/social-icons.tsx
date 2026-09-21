@@ -1,4 +1,5 @@
 import type { SVGProps } from "react";
+import type { SocialIcon } from "@/lib/socials";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
@@ -36,3 +37,11 @@ export function PhoneIcon(props: IconProps) {
     </svg>
   );
 }
+
+/** Single source of truth for rendering a social row item. */
+export const socialIconMap = {
+  facebook: FacebookIcon,
+  instagram: InstagramIcon,
+  phone: PhoneIcon,
+  mail: MailIcon,
+} satisfies Record<SocialIcon | "mail", (props: IconProps) => React.JSX.Element>;

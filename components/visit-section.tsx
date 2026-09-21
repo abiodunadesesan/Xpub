@@ -1,18 +1,11 @@
 "use client";
 
-import { FacebookIcon, InstagramIcon, PhoneIcon } from "@/components/social-icons";
+import { socialIconMap } from "@/components/social-icons";
 import { XPubMap } from "@/components/xpub-map";
-import { socials } from "@/lib/content";
+import { socials } from "@/lib/socials";
 import { Reveal } from "@/components/reveal";
-import { SplitHeadline } from "@/components/split-headline";
+import { SectionHeading } from "@/components/section-heading";
 import { useI18n } from "@/lib/i18n/provider";
-
-const iconMap = {
-  facebook: FacebookIcon,
-  instagram: InstagramIcon,
-  phone: PhoneIcon,
-  mail: PhoneIcon,
-};
 
 export function VisitSection() {
   const { t } = useI18n();
@@ -26,10 +19,11 @@ export function VisitSection() {
 
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
         <Reveal>
-          <p className="font-label text-[11px] text-[var(--gold)]">{t.visit.eyebrow}</p>
-          <div className="mt-3">
-            <SplitHeadline first={t.visit.titleTop} second={t.visit.titleBottom} />
-          </div>
+          <SectionHeading
+            eyebrow={t.visit.eyebrow}
+            titleTop={t.visit.titleTop}
+            titleBottom={t.visit.titleBottom}
+          />
           <p className="mt-5 font-serif text-lg leading-8 text-white/90">{t.visit.lead}</p>
 
           <div className="glass-card mt-6 p-5">
@@ -63,7 +57,7 @@ export function VisitSection() {
               {socials
                 .filter((social) => social.icon !== "phone")
                 .map((social) => {
-                  const Icon = iconMap[social.icon];
+                  const Icon = socialIconMap[social.icon];
                   return (
                     <li key={social.href}>
                       <a

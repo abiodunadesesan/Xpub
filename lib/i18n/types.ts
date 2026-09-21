@@ -48,12 +48,46 @@ export type Dictionary = {
     titleBottom: string;
     lead: string;
     sets: Array<{ day: string; title: string; time: string }>;
+    /**
+     * The player corner: genre chips, transport, the Spotify embed and the
+     * track list. Every string is about what is really playing — a track the
+     * site has bundled says so, a Spotify-only track says that instead.
+     */
+    corner: {
+      eyebrow: string;
+      nowPlaying: string;
+      lastPlayed: string;
+      side: string;
+      onRotation: string;
+      openInSpotify: string;
+      onSpotify: string;
+      bundled: string;
+      spotifyOnly: string;
+      bothSources: string;
+      liveFrom: string;
+      note: string;
+      /** Named apart from `ui.playMusic` so the two controls stay distinguishable. */
+      play: string;
+      pause: string;
+      previous: string;
+      next: string;
+      seek: string;
+    };
   };
   blog: {
     eyebrow: string;
     titleTop: string;
     titleBottom: string;
-    posts: Array<{ title: string; excerpt: string; tag: string }>;
+    /** Opens the full-article dialog on a card. */
+    readMore: string;
+    closeArticle: string;
+    posts: Array<{
+      title: string;
+      excerpt: string;
+      tag: string;
+      readTime: string;
+      body: string[];
+    }>;
   };
   reviews: {
     eyebrow: string;

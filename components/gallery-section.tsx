@@ -5,9 +5,38 @@ import { useState } from "react";
 import { Reveal } from "@/components/reveal";
 import { GallerySkeleton } from "@/components/skeleton";
 import { MediaLightbox, type LightboxItem } from "@/components/media-lightbox";
-import { SplitHeadline } from "@/components/split-headline";
-import { useVenueMedia } from "@/lib/use-venue-media";
+import { SectionHeading } from "@/components/section-heading";
+import { useVenueMedia } from "@/lib/venue-media";
 import { useI18n } from "@/lib/i18n/provider";
+
+/**
+ * Spread the clips evenly through the photo grid instead of clustering them.
+ * Every clip is placed — with a wide grid the fixed "insert at 3 and 9" trick
+ * only ever showed the first two.
+ */
+function interleave(images: LightboxItem[], videos: LightboxItem[]) {
+  if (videos.length === 0) return images;
+  if (images.length === 0) return videos;
+
+  const stride = Math.max(2, Math.floor(images.length / (videos.length + 1)));
+  const out: LightboxItem[] = [];
+  let next = 0;
+
+  images.forEach((image, index) => {
+    out.push(image);
+    if (next < videos.length && (index + 1) % stride === 0) {
+      out.push(videos[next]!);
+      next += 1;
+    }
+  });
+
+  while (next < videos.length) {
+    out.push(videos[next]!);
+    next += 1;
+  }
+
+  return out;
+}
 
 export function GallerySection() {
   const { t } = useI18n();
@@ -26,27 +55,24 @@ export function GallerySection() {
     kind: "video" as const,
   }));
 
-  // Interleave unique videos into unique photo list — no duplicates
-  const items: LightboxItem[] =
+  const items = interleave(
     imageItems.length > 0
-      ? [...imageItems]
-      : [{ src: "/images/cover.jpg", alt: "X Pub", kind: "image" }];
-  if (videoItems[0]) items.splice(Math.min(3, items.length), 0, videoItems[0]);
-  if (videoItems[1]) items.splice(Math.min(9, items.length), 0, videoItems[1]);
+      ? imageItems
+      : [{ src: "/images/cover.jpg", alt: "X Pub", kind: "image" as const }],
+    videoItems,
+  );
 
   return (
     <section id="gallery" className="relative z-10 overflow-hidden py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mb-10 max-w-2xl">
-          <p className="font-label text-[11px] text-[var(--gold)]">{t.gallery.eyebrow}</p>
-          <div className="mt-3">
-            <SplitHeadline
-              first={t.gallery.titleTop}
-              second={t.gallery.titleBottom || t.nav.gallery}
-            />
-          </div>
+          <SectionHeading
+            eyebrow={t.gallery.eyebrow}
+            titleTop={t.gallery.titleTop}
+            titleBottom={t.gallery.titleBottom || t.nav.gallery}
+          />
           <p className="mt-3 font-serif text-sm text-white/50">
-            {items.length} moments · tap to open
+            {items.length} moments · {videoItems.length} clips · tap to open
           </p>
         </Reveal>
 
@@ -82,9 +108,8 @@ export function GallerySection() {
                     alt={item.alt}
                     fill
                     loading={index < 4 ? "eager" : "lazy"}
-                    unoptimized
-                    className="object-cover transition duration-500 group-hover:scale-105"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
                   />
                 )}
                 <span className="pointer-events-none absolute inset-0 bg-black/0 transition group-hover:bg-black/20" />

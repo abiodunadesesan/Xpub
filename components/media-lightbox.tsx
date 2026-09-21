@@ -89,7 +89,7 @@ export function MediaLightbox({
                 alt={item.alt}
                 width={1600}
                 height={1200}
-                unoptimized={item.src.startsWith("http")}
+                sizes="100vw"
                 className="max-h-[88vh] w-full rounded-sm object-contain"
               />
             )}

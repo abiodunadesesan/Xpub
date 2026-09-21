@@ -6,11 +6,11 @@ async function waitForSiteReady(page: import("@playwright/test").Page) {
   await page.waitForFunction(() => !document.body.classList.contains("is-loading"), {
     timeout: 12_000,
   });
-  // Wait for Convex media hydration (hero img or gallery tiles)
+  // Wait for media hydration (hero still or clip, or gallery tiles)
   await page.waitForFunction(
     () =>
       document.querySelectorAll("#gallery img, #gallery video, #music video").length > 0 ||
-      document.querySelector("#top img") !== null,
+      document.querySelector("#top img, #top video") !== null,
     { timeout: 25_000 },
   );
   await page.waitForTimeout(400);

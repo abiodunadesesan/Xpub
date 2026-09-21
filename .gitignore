@@ -46,3 +46,10 @@ package.brandkit.json
 package.brandkit-lock.json
 _reference/**/crawl/scroll.webm
 _reference/**/loader/screenshots/
+
+# playwright
+playwright-report/
+test-results/
+
+# agent / tool session state
+.freebuff/

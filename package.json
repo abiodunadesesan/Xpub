@@ -8,10 +8,15 @@
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "playwright test",
+    "media:upload": "node --env-file-if-exists=.env.local scripts/upload-media.mts",
+    "media:prune": "node --env-file-if-exists=.env.local scripts/upload-media.mts --prune",
+    "media:sync": "node --env-file-if-exists=.env.local scripts/sync-media.mts",
+    "media:rename": "node --env-file-if-exists=.env.local scripts/rename-media.mts",
+    "media:videos": "node --env-file-if-exists=.env.local scripts/build-gallery-videos.mts",
     "extract": "echo Use: npx --prefix ./node_modules.brandkit extract ... or npm i brandkit-cli"
   },
   "dependencies": {
-    "convex": "^1.45.0",
+    "@aws-sdk/client-s3": "^3.1136.0",
     "lenis": "^1.3.26",
     "lottie-react": "^3.1.2",
     "lucide-react": "^1.45.0",

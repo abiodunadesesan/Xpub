@@ -2,17 +2,10 @@
 
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { FacebookIcon, InstagramIcon, PhoneIcon } from "@/components/social-icons";
+import { socialIconMap } from "@/components/social-icons";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { socials } from "@/lib/content";
+import { socials } from "@/lib/socials";
 import { useI18n } from "@/lib/i18n/provider";
-
-const iconMap = {
-  facebook: FacebookIcon,
-  instagram: InstagramIcon,
-  phone: PhoneIcon,
-  mail: PhoneIcon,
-};
 
 export function SiteHeader() {
   const { t } = useI18n();
@@ -76,7 +69,7 @@ export function SiteHeader() {
             <LanguageSwitcher />
             <ul className="hidden items-center gap-3 sm:flex">
               {socials.map((social) => {
-                const Icon = iconMap[social.icon];
+                const Icon = socialIconMap[social.icon];
                 return (
                   <li key={social.href}>
                     <a
@@ -114,7 +107,7 @@ export function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="font-display text-2xl text-[var(--pi-yellow)]"
+                className="font-display text-2xl text-[var(--yellow)]"
               >
                 {link.label}
               </a>

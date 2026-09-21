@@ -11,7 +11,7 @@ export function SiteFooter() {
     <footer className="relative z-10 overflow-hidden bg-black pt-6 pb-10">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-[-10%] top-8 h-px origin-left scale-x-110 bg-[var(--pi-yellow)]/50"
+        className="pointer-events-none absolute inset-x-[-10%] top-8 h-px origin-left scale-x-110 bg-[var(--yellow)]/50"
         style={{ transform: "rotate(-4deg)" }}
       />
 
@@ -19,7 +19,7 @@ export function SiteFooter() {
         <SeeYouSoon />
 
         <div className="flex flex-col items-center gap-2">
-          <p className="font-display text-3xl text-[var(--pi-yellow)] sm:text-4xl">
+          <p className="font-display text-3xl text-[var(--yellow)] sm:text-4xl">
             {t.brand.name}
           </p>
           <p className="font-body text-xs uppercase tracking-[0.25em] text-white/60">
@@ -28,17 +28,17 @@ export function SiteFooter() {
         </div>
 
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-body text-sm text-white/70">
-          <Link href="/legal" className="hover:text-[var(--pi-yellow)]">
+          <Link href="/legal" className="hover:text-[var(--yellow)]">
             {t.footer.legal}
           </Link>
-          <a href="#visit" className="hover:text-[var(--pi-yellow)]">
+          <a href="#visit" className="hover:text-[var(--yellow)]">
             {t.footer.visit}
           </a>
           <a
             href="https://www.instagram.com/xpubgirne/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-[var(--pi-yellow)]"
+            className="hover:text-[var(--yellow)]"
           >
             {t.footer.instagram}
           </a>
