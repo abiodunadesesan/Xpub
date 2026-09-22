@@ -35,7 +35,7 @@ export function ExperienceSection() {
               type="button"
               data-cursor
               onClick={() => setActive(index)}
-              className={`rounded-full px-4 py-2 font-label text-[11px] transition ${
+              className={`min-h-10 rounded-full px-4 py-2 font-label text-[11px] transition ${
                 active === index
                   ? "bg-[var(--gold)] text-black shadow-[0_8px_24px_rgba(184,142,93,0.35)]"
                   : "glass-panel text-white/85 hover:border-[var(--gold)]/50"
@@ -46,7 +46,7 @@ export function ExperienceSection() {
           ))}
         </Reveal>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
           <AnimatePresence mode="wait">
             <motion.article
               key={item.id}
@@ -86,7 +86,7 @@ export function ExperienceSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.35, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
-              className="grid gap-3 sm:grid-cols-2"
+              className="grid grid-cols-1 gap-3 sm:grid-cols-2"
             >
               {item.bullets.map((bullet, index) => {
                 const thumb = bulletImages[index];

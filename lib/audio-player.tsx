@@ -33,6 +33,12 @@ type AudioPlayer = {
   duration: number;
   /** True when the site has this track's file and can play it. */
   playable: boolean;
+  /**
+   * False when *no* track is bundled. The controls read this so they can send
+   * a visitor to Spotify instead of offering a play button that would do
+   * nothing — which is the state the site is in until the MP3s are added.
+   */
+  hasPlayableTrack: boolean;
   isAvailable: (id: string) => boolean;
   durationOf: (id: string) => number | null;
   select: (id: string) => void;
@@ -102,33 +108,30 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   }, [playable]);
 
   /**
-   * Probe every track once: a HEAD request for "is the file really there", then
-   * the metadata for its duration. Both answers are things the UI otherwise
-   * guesses at, and a wrong guess is worse than a slightly later one.
+   * Probe every track once, by asking the browser to read its metadata. That
+   * single request answers both questions — whether the file is really there
+   * (a missing one fires `error`) and how long it is — so a track that isn't
+   * bundled yet is reported as unavailable instead of offered as a play button
+   * with nothing behind it. Loading metadata is also far cheaper than loading
+   * the audio: it does not download the file.
    */
   useEffect(() => {
     let cancelled = false;
 
-    const probe = async (track: Track): Promise<TrackStatus> => {
-      if (!track.src) return { available: false, duration: null };
+    const probe = (track: Track): Promise<TrackStatus> => {
+      if (!track.src) return Promise.resolve({ available: false, duration: null });
 
-      try {
-        const response = await fetch(track.src, { method: "HEAD" });
-        if (!response.ok) return { available: false, duration: null };
-      } catch {
-        return { available: false, duration: null };
-      }
-
-      const seconds = await new Promise<number | null>((resolve) => {
+      return new Promise((resolve) => {
         const audio = new Audio();
         audio.preload = "metadata";
         audio.onloadedmetadata = () =>
-          resolve(Number.isFinite(audio.duration) ? audio.duration : null);
-        audio.onerror = () => resolve(null);
+          resolve({
+            available: true,
+            duration: Number.isFinite(audio.duration) ? audio.duration : null,
+          });
+        audio.onerror = () => resolve({ available: false, duration: null });
         audio.src = track.src!;
       });
-
-      return { available: true, duration: seconds };
     };
 
     void (async () => {
@@ -272,6 +275,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       position,
       duration,
       playable,
+      hasPlayableTrack: playableIndexes.length > 0,
       isAvailable: (id) => status[id]?.available === true,
       durationOf: (id) => status[id]?.duration ?? null,
       select,
@@ -280,7 +284,20 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       previous: () => step(-1),
       seek,
     }),
-    [current, duration, index, playable, playing, position, select, seek, status, step, toggle],
+    [
+      current,
+      duration,
+      index,
+      playable,
+      playableIndexes.length,
+      playing,
+      position,
+      select,
+      seek,
+      status,
+      step,
+      toggle,
+    ],
   );
 
   return (

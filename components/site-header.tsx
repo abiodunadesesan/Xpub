@@ -1,11 +1,13 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { socialIconMap } from "@/components/social-icons";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { socials } from "@/lib/socials";
 import { useI18n } from "@/lib/i18n/provider";
+import { useScrollLock } from "@/lib/scroll-lock";
 
 export function SiteHeader() {
   const { t } = useI18n();
@@ -21,17 +23,32 @@ export function SiteHeader() {
     { href: "#visit", label: t.nav.visit },
   ];
 
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+  // The menu covers the page, so the page behind it must not scroll — and
+  // on mobile that means stopping Lenis, not just hiding the body overflow.
+  useScrollLock(open);
 
   return (
     <header className="site-header fixed inset-x-0 top-0 z-50">
       <div className="site-header-bar relative">
         <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-5 lg:px-8">
+          {/* The venue's mark, at every width. It replaced a text "XPUB" that
+              only rendered on small screens, so desktop had no brand at all. */}
+          <a
+            href="#top"
+            data-cursor
+            aria-label={`${t.brand.name} ${t.brand.city} — ${t.brand.tagline}`}
+            className="shrink-0"
+          >
+            <Image
+              src="/brand/logo.webp"
+              alt={`${t.brand.name} ${t.brand.city}`}
+              width={660}
+              height={620}
+              priority
+              className="brand-emblem h-11 w-auto sm:h-12 lg:h-10"
+            />
+          </a>
+
           <nav className="hidden min-w-0 flex-1 items-center gap-4 xl:flex xl:gap-6">
             {navLinks.map((link) => (
               <a
@@ -57,13 +74,6 @@ export function SiteHeader() {
               </a>
             ))}
           </nav>
-
-          <a
-            href="#top"
-            className="font-display text-lg tracking-wide text-[var(--gold)] lg:hidden"
-          >
-            {t.brand.short}
-          </a>
 
           <div className="ml-auto flex items-center gap-2 sm:gap-3">
             <LanguageSwitcher />

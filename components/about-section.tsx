@@ -24,7 +24,7 @@ export function AboutSection() {
         style={{ transform: "rotate(-4deg) scaleX(1.2)" }}
       />
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:px-8">
         <Reveal className="max-w-2xl">
           <SectionHeading
             eyebrow={t.about.eyebrow}

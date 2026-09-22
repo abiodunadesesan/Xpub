@@ -7,6 +7,7 @@ import { X } from "lucide-react";
 import { Reveal, RevealGroup } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { useI18n } from "@/lib/i18n/provider";
+import { useScrollLock } from "@/lib/scroll-lock";
 import { useVenueMedia } from "@/lib/venue-media";
 
 type Post = ReturnType<typeof useI18n>["t"]["blog"]["posts"][number];
@@ -29,23 +30,21 @@ function ArticleDialog({
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
+  // The dialog only exists while open, so the lock is unconditional here.
+  useScrollLock(true);
+
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
     };
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
     closeRef.current?.focus();
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[300] overflow-y-auto bg-black/90 p-4 backdrop-blur-md"
+      className="fixed inset-0 z-[300] overflow-y-auto overscroll-contain bg-black/90 p-4 backdrop-blur-md"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -93,12 +92,12 @@ function ArticleDialog({
           </div>
           <h3
             id="blog-article-title"
-            className="mt-4 font-display text-3xl leading-tight tracking-[0.06em] text-white sm:text-4xl"
+            className="mt-4 font-display text-[clamp(1.5rem,5.5vw,2.25rem)] leading-tight tracking-[0.06em] text-white"
           >
             {post.title}
           </h3>
 
-          <div className="mt-6 space-y-4 font-serif text-lg leading-8 text-white/85">
+          <div className="mt-6 space-y-4 font-serif text-base leading-7 text-white/85 sm:text-lg sm:leading-8">
             {post.body.map((paragraph) => (
               <p key={paragraph.slice(0, 40)}>{paragraph}</p>
             ))}
@@ -135,7 +134,7 @@ export function BlogSection() {
           />
         </Reveal>
 
-        <RevealGroup className="grid gap-4 md:grid-cols-3" stagger={0.1}>
+        <RevealGroup className="grid grid-cols-1 gap-4 md:grid-cols-3" stagger={0.1}>
           {t.blog.posts.map((post, index) => {
             const cover = blogImages[index] ?? null;
             return (

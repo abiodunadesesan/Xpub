@@ -58,7 +58,7 @@ export function GallerySection() {
   const items = interleave(
     imageItems.length > 0
       ? imageItems
-      : [{ src: "/images/cover.jpg", alt: "X Pub", kind: "image" as const }],
+      : [{ src: "/media/about-neon.jpg", alt: "X Pub", kind: "image" as const }],
     videoItems,
   );
 

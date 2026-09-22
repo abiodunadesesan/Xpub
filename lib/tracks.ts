@@ -13,6 +13,11 @@
  * Adding a track: drop the MP3 in `public/audio/`, add an entry here with its
  * `src`, and it appears in the corner and the playlist. A Spotify-only entry
  * just needs title, artists and the link.
+ *
+ * The rotation is the venue's own two picks. Nothing is bundled yet — Spotify
+ * does not hand out audio files, so the MP3s have to be dropped in by hand.
+ * Until then each track is honestly reported as Spotify-only rather than
+ * offered behind a play button that would do nothing.
  */
 export type Track = {
   id: string;
@@ -54,20 +59,21 @@ export const TRACKS: Track[] = [
     genres: ["afro-house"],
     accent: "#a855f7",
   },
-  {
-    // The site's own ambience: the bed that plays when nothing else is
-    // available. Bundled, so it always works — including with no credentials
-    // and no network.
-    id: "site-bed",
-    title: "Deep House Lounge Bar",
-    artists: "En-Studio",
-    label: "En-Studio",
-    src: "/audio/bg-music.mp3",
-    spotify: null,
-    genres: ["deep-house"],
-    accent: "#22d3ee",
-  },
 ];
+
+/**
+ * The venue's own playlist — what the turntable is a front end for.
+ *
+ * It is a second, deeper source than `TRACKS`: the rotation is the handful of
+ * tracks the site can talk about, the playlist is everything the venue plays.
+ * Their own audio can't be embedded for playback, so the corner shows their
+ * player instead of pretending to stream it.
+ */
+export const PLAYLIST = {
+  url: "https://open.spotify.com/playlist/6DLHjKqc62UBhwXe7SvTNz",
+  embed:
+    "https://open.spotify.com/embed/playlist/6DLHjKqc62UBhwXe7SvTNz?utm_source=generator&theme=0",
+} as const;
 
 /** Chip labels. A genre missing here falls back to its id. */
 const GENRE_LABELS: Record<string, string> = {

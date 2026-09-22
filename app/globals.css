@@ -368,6 +368,30 @@ body.cursor-ready * {
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+/*
+ * The brand mark.
+ *
+ * The supplied logo was a photograph of the emblem on dark marble. Cutting its
+ * background out by colour left grey noise around the gold, so the alpha is
+ * taken from luminance instead (recipe in the README): black becomes fully
+ * transparent, gold keeps its shape and its glow.
+ *
+ * That produces a real cut-out, which is why this needs no blend mode. An
+ * earlier attempt used `mix-blend-mode: lighten` over a crushed background,
+ * which cannot work here — `Reveal` leaves `filter` on the wrapper, and a
+ * filter isolates the backdrop, so the mark would have blended against
+ * nothing and rendered its own black tile.
+ *
+ * The asset is WebP, not PNG, and that is load-bearing: Next's image optimizer
+ * answers a `q=75` request for a PNG with a *palettised* PNG, which snapped
+ * this soft alpha ramp to fully opaque black and put the tile back. WebP keeps
+ * alpha on its own lossless channel.
+ */
+.brand-emblem {
+  /* `width: auto` from the size classes, with the intrinsic ratio kept. */
+  object-fit: contain;
+}
+
 .arcade-star {
   font-size: 1.1rem;
   line-height: 1;

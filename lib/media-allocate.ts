@@ -9,6 +9,23 @@ export const HEAVY_VIDEO_BYTES = 50_000_000;
 
 const EXPERIENCE_TAB_COUNT = 4;
 const EXPERIENCE_BULLETS_PER_TAB = 4;
+
+/**
+ * Which media pool each experience tab draws from, index-aligned with
+ * `t.experiences.items` (VIP Rooms, Live DJs, Promotions, Social Spot).
+ *
+ * `venue` is the pub's own space — the lounge, the bar back, the neon, the
+ * pool, the booth — and it is what the VIP tab has to show: a room is what is
+ * being sold there, so a photo of guests, staff, a cocktail or the front door
+ * is the wrong picture, however good it is. `null` leaves a tab on the shared
+ * rotation, which has no better subject to pin to.
+ */
+const EXPERIENCE_TAB_CATEGORIES: ReadonlyArray<string | null> = [
+  "venue",
+  null,
+  null,
+  null,
+];
 const MENU_TAB_COUNT = 3;
 const MENU_STILLS = 3;
 const BLOG_POST_COUNT = 3;
@@ -61,6 +78,14 @@ function named(...needles: string[]) {
 const DRINK_PREFIX = "drink-";
 
 /**
+ * Filename fragment that marks a key as the pub's own space.
+ *
+ * A bucket can't be queried by subject, so the name carries the tag: upload
+ * `venue-terrace.jpg` and it joins the VIP Rooms tab with no code change.
+ */
+const VENUE_PREFIX = "venue-";
+
+/**
  * Drink category per menu tab, index-aligned with `t.menu.tabs`
  * (cocktails, beer, nights).
  *
@@ -73,6 +98,10 @@ const MENU_TAB_CATEGORIES = ["cocktail", "beer", "bar"] as const;
 
 function isDrink(item: VenueMediaItem) {
   return baseName(item).startsWith(DRINK_PREFIX);
+}
+
+function isVenueSpace(item: VenueMediaItem) {
+  return baseName(item).startsWith(VENUE_PREFIX);
 }
 
 function isDrinkIn(item: VenueMediaItem, category: string) {
@@ -170,14 +199,44 @@ export function buildVenueMedia(media: MediaManifest | null): VenueMedia {
   const rotationPool = sectionPool.length > 0 ? sectionPool : allImages;
 
   // ——— Experience: "Night to dawn" ———
-  // Each tab gets its own cover plus a full set of bullet tiles.
-  const experienceCovers = rotate(rotationPool, 0, EXPERIENCE_TAB_COUNT);
+  // Each tab gets its own cover plus a full set of bullet tiles, drawn from its
+  // own pool where it has one.
+  const venuePool = allImages.filter(isVenueSpace).sort(byBaseName);
+  // Everything that isn't room media, so the pinned tab's photos stay its own.
+  // A bucket that hasn't adopted the `venue-` convention keeps the full pool
+  // rather than rendering three tabs from a handful of frames.
+  const unPinnedPool = rotationPool.filter((image) => !isVenueSpace(image));
+  const generalPool =
+    unPinnedPool.length >= EXPERIENCE_TAB_COUNT * EXPERIENCE_BULLETS_PER_TAB
+      ? unPinnedPool
+      : rotationPool;
+
   const experiencePacks: ExperienceMediaPack[] = Array.from(
     { length: EXPERIENCE_TAB_COUNT },
-    (_, tab) => ({
-      cover: experienceCovers[tab] ?? heroImage,
-      bullets: rotate(rotationPool, tab * EXPERIENCE_BULLETS_PER_TAB + 1, EXPERIENCE_BULLETS_PER_TAB),
-    }),
+    (_, tab) => {
+      const pinned =
+        EXPERIENCE_TAB_CATEGORIES[tab] === "venue" && venuePool.length > 0 ? venuePool : null;
+
+      if (pinned) {
+        return {
+          cover: pinned[0] ?? heroImage,
+          bullets: padTo(
+            pinned.slice(1, 1 + EXPERIENCE_BULLETS_PER_TAB),
+            EXPERIENCE_BULLETS_PER_TAB,
+            pinned,
+          ),
+        };
+      }
+
+      return {
+        cover: generalPool[tab % generalPool.length] ?? heroImage,
+        bullets: rotate(
+          generalPool,
+          tab * EXPERIENCE_BULLETS_PER_TAB + 1,
+          EXPERIENCE_BULLETS_PER_TAB,
+        ),
+      };
+    },
   );
 
   // ——— Video pools ———

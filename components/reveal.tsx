@@ -12,6 +12,7 @@ type RevealProps = {
   once?: boolean;
   amount?: number;
   as?: "div" | "section" | "article" | "li" | "span";
+  "data-testid"?: string;
 };
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -26,18 +27,24 @@ export function Reveal({
   once = true,
   amount = 0.15,
   as = "div",
+  "data-testid": testId,
 }: RevealProps) {
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
   const Tag = motion[as];
 
   if (!ready) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div className={className} data-testid={testId}>
+        {children}
+      </div>
+    );
   }
 
   return (
     <Tag
       className={className}
+      data-testid={testId}
       initial={{ opacity: 0, y, x, filter: "blur(6px)" }}
       whileInView={{ opacity: 1, y: 0, x: 0, filter: "blur(0px)" }}
       viewport={{ once, amount, margin: "0px 0px -8% 0px" }}

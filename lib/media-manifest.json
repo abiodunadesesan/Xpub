@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T23:38:38.170Z",
+  "generatedAt": "2026-09-22T22:14:56.550Z",
   "bucket": "xpub-media",
   "accountId": "b09f8234724d58854dbb7fb8148fed5e",
   "objects": [
@@ -284,6 +284,26 @@
       }
     },
     {
+      "key": "guests-12.jpg",
+      "size": 458220,
+      "contentType": "image/jpeg",
+      "kind": "image",
+      "web": {
+        "key": "_web/guests-12.jpg",
+        "size": 121704
+      }
+    },
+    {
+      "key": "guests-13.jpg",
+      "size": 690633,
+      "contentType": "image/jpeg",
+      "kind": "image",
+      "web": {
+        "key": "_web/guests-13.jpg",
+        "size": 155676
+      }
+    },
+    {
       "key": "hero-poster.jpg",
       "size": 10832537,
       "contentType": "image/jpeg",
@@ -300,7 +320,7 @@
       "kind": "video",
       "web": {
         "key": "_web/hero-xpub.mp4",
-        "size": 886257
+        "size": 4123912
       }
     },
     {
@@ -354,16 +374,6 @@
       }
     },
     {
-      "key": "venue-01.jpg",
-      "size": 458220,
-      "contentType": "image/jpeg",
-      "kind": "image",
-      "web": {
-        "key": "_web/venue-01.jpg",
-        "size": 121704
-      }
-    },
-    {
       "key": "venue-02.jpg",
       "size": 544888,
       "contentType": "image/jpeg",
@@ -371,16 +381,6 @@
       "web": {
         "key": "_web/venue-02.jpg",
         "size": 161939
-      }
-    },
-    {
-      "key": "venue-03.jpg",
-      "size": 690633,
-      "contentType": "image/jpeg",
-      "kind": "image",
-      "web": {
-        "key": "_web/venue-03.jpg",
-        "size": 155676
       }
     },
     {

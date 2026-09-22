@@ -47,7 +47,7 @@ export function MenuSection() {
           */}
           <div className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-6">
             {pack?.cover?.url ? (
-              <div className="glass-card relative col-span-2 aspect-[16/10] overflow-hidden sm:col-span-4">
+              <div                className="glass-card relative col-span-2 aspect-[16/10] min-w-0 overflow-hidden sm:col-span-4">
                 <Image
                   key={pack.cover.url}
                   src={pack.cover.url}
@@ -63,7 +63,7 @@ export function MenuSection() {
             {stills.map((still) => (
               <div
                 key={still._id}
-                className="glass-card relative col-span-1 aspect-square overflow-hidden sm:col-span-2"
+                className="glass-card relative col-span-1 aspect-square min-w-0 overflow-hidden sm:col-span-2"
               >
                 <Image
                   src={still.url}
@@ -77,7 +77,7 @@ export function MenuSection() {
             ))}
 
             {clip?.url ? (
-              <div className="glass-card relative col-span-2 aspect-square overflow-hidden sm:col-span-2">
+              <div className="glass-card relative col-span-2 aspect-square min-w-0 overflow-hidden sm:col-span-2">
                 <video
                   // Remounts when the tab swaps the clip, so it autoplays the
                   // new one instead of holding the previous tab's frame.
@@ -104,7 +104,7 @@ export function MenuSection() {
                 data-cursor
                 onClick={() => setTab(entry.id)}
                 aria-pressed={tab === entry.id}
-                className={`px-4 py-2.5 font-label text-[11px] transition ${
+                className={`min-h-11 px-4 py-2.5 font-label text-[11px] transition ${
                   tab === entry.id
                     ? "bg-[var(--gold)] text-black"
                     : "glass-panel text-white hover:border-[var(--gold)]/60"
@@ -124,7 +124,10 @@ export function MenuSection() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
-              <RevealGroup className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" stagger={0.04}>
+              <RevealGroup
+                className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
+                stagger={0.04}
+              >
                 {items.map((item) => (
                   <article key={item.name} className="glass-card px-4 py-5">
                     <div className="flex items-start justify-between gap-4">

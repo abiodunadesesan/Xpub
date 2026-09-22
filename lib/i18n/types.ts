@@ -1,5 +1,5 @@
-export type Dictionary = {
-  brand: { name: string; short: string; city: string; tagline: string };
+export type Dictionary = {  brand: {
+    name: string; short: string; city: string; tagline: string };
   nav: { about: string; experience: string; menu: string; gallery: string; music: string; blog: string; visit: string };
   hero: {
     eyebrow: string;
@@ -61,6 +61,10 @@ export type Dictionary = {
       onRotation: string;
       openInSpotify: string;
       onSpotify: string;
+      /** The venue's Spotify playlist, shown under the rotation. */
+      playlistTitle: string;
+      playlistLead: string;
+      openPlaylist: string;
       bundled: string;
       spotifyOnly: string;
       bothSources: string;
@@ -116,6 +120,8 @@ export type Dictionary = {
     pauseMusic: string;
     nowPlaying: string;
     tapToPlay: string;
+    /** Shown instead of a dead play button when no audio is bundled yet. */
+    listenOnSpotify: string;
     openMenu: string;
     closeMenu: string;
   };

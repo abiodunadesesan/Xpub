@@ -123,6 +123,10 @@ export const en: Dictionary = {
       onRotation: "Recently spinning · X Pub",
       openInSpotify: "Open in Spotify",
       onSpotify: "On Spotify",
+      playlistTitle: "The house playlist",
+      playlistLead:
+        "What tonight sounds like, in full — the sets our DJs build from. Follow it and the next one lands in your library.",
+      openPlaylist: "Open the playlist in Spotify",
       bundled:
         "Bundled with the site, so it plays from the venue's own audio — no Spotify link for this one.",
       spotifyOnly: "Not bundled with the site yet — play it from the Spotify card above.",
@@ -248,6 +252,7 @@ export const en: Dictionary = {
     pauseMusic: "Pause background music",
     nowPlaying: "Now playing",
     tapToPlay: "Tap to play",
+    listenOnSpotify: "Listen on Spotify",
     openMenu: "Open menu",
     closeMenu: "Close menu",
   },

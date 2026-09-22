@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect } from "react";
+import { useScrollLock } from "@/lib/scroll-lock";
 
 export type LightboxItem = {
   src: string;
@@ -27,6 +28,10 @@ export function MediaLightbox({
   const open = index !== null && items[index];
   const item = open ? items[index] : null;
 
+  // Holds the page still behind the overlay — including Lenis, which would
+  // otherwise keep scrolling it under the photo.
+  useScrollLock(Boolean(item));
+
   useEffect(() => {
     if (index === null) return;
     const onKey = (e: KeyboardEvent) => {
@@ -34,19 +39,15 @@ export function MediaLightbox({
       if (e.key === "ArrowRight") onChange((index + 1) % items.length);
       if (e.key === "ArrowLeft") onChange((index - 1 + items.length) % items.length);
     };
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [index, items.length, onChange, onClose]);
 
   return (
     <AnimatePresence>
       {item ? (
         <motion.div
-          className="fixed inset-0 z-[300] flex items-center justify-center bg-black/90 p-4 backdrop-blur-md"
+          className="fixed inset-0 z-[300] flex items-center justify-center overscroll-contain bg-black/90 p-4 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -66,7 +67,7 @@ export function MediaLightbox({
           </button>
 
           <motion.div
-            className="relative max-h-[88vh] w-full max-w-5xl"
+            className="relative max-h-[88svh] w-full max-w-5xl"
             initial={{ scale: 0.94, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.96, opacity: 0 }}
@@ -75,7 +76,7 @@ export function MediaLightbox({
           >
             {item.kind === "video" ? (
               <video
-                className="max-h-[88vh] w-full rounded-sm object-contain"
+                className="max-h-[88svh] w-full rounded-sm object-contain"
                 src={item.src}
                 controls
                 muted
@@ -90,7 +91,7 @@ export function MediaLightbox({
                 width={1600}
                 height={1200}
                 sizes="100vw"
-                className="max-h-[88vh] w-full rounded-sm object-contain"
+                className="max-h-[88svh] w-full rounded-sm object-contain"
               />
             )}
           </motion.div>

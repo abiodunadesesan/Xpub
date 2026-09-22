@@ -21,7 +21,7 @@ const RESPECT_REDUCED_MOTION = false;
 export function HeroSection() {
   const { t } = useI18n();
   const { heroImage, heroVideo, isLoading } = useVenueMedia();
-  const imageSrc = heroImage?.url ?? "/images/cover.jpg";
+  const imageSrc = heroImage?.url ?? "/media/hero-poster.jpg";
   const reduce = useReducedMotion();
   const showVideo =
     Boolean(heroVideo?.url) && !(RESPECT_REDUCED_MOTION && reduce);
@@ -62,18 +62,25 @@ export function HeroSection() {
         ✦
       </span>
 
-      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-7xl items-center gap-8 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-12 lg:gap-0 lg:px-8 lg:pb-20 lg:pt-24">
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-7xl grid-cols-1 items-center gap-8 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-12 lg:gap-0 lg:px-8 lg:pb-20 lg:pt-24">
         <motion.div style={{ y: copyY, opacity: copyOpacity }} className="relative z-20 lg:col-span-6">
           <Reveal className="max-w-xl lg:max-w-none" y={28}>
             <div>
-              <motion.p
-                className="font-display text-[clamp(3rem,9vw,5.2rem)] font-semibold leading-[0.9] tracking-[0.12em] text-white"
+              {/* The venue's own mark rather than a typographic stand-in. */}
+              <motion.div
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
               >
-                {t.hero.logo}
-              </motion.p>
+                <Image
+                  src="/brand/logo.webp"
+                  alt={`${t.hero.logo} — ${t.brand.city}`}
+                  width={660}
+                  height={620}
+                  priority
+                  className="brand-emblem h-[clamp(6rem,19vw,10rem)] w-auto"
+                />
+              </motion.div>
             </div>
 
             <h1 className="mt-10 font-display leading-[0.92]">

@@ -54,9 +54,20 @@ const MAX_DIMENSION = 1_600;
 const QUALITY = 4;
 /** Longest side of a video copy — tiles are small, autoplaying and muted. */
 const MAX_VIDEO_DIMENSION = 960;
+/**
+ * Longest side of the hero loop, which is full-bleed rather than a tile.
+ *
+ * The hero source is 720x1280 and the panel it sits in is ~920px wide on a
+ * desktop, so a 960px cap was downscaling it to 540x960 and the browser was
+ * then blowing that back up by ~1.7x — which is what made the clip look soft.
+ * Capping at the source's own long side means the encode is never resampled
+ * down, and the remaining 1.28x is the browser's problem, not the file's.
+ * (4K would be a straight upscale of 720p pixels: more bytes, no more detail.)
+ */
+const HERO_MAX_DIMENSION = 1_280;
 /** Re-encode above this, so grid autoplay isn't pulling megabytes per tile. */
 const MAX_VIDEO_BYTES = 3_000_000;
-/** `hero-*` keys fill the viewport, so the encode has to stay lean. */
+/** `hero-*` keys fill the viewport, so the encode gets its own profile. */
 const HERO_PREFIX = "hero-";
 
 type VideoProfile = {
@@ -73,28 +84,31 @@ type VideoProfile = {
  * How much of the hero reel to keep.
  *
  * It is a background that loops, so length past the first few seconds only
- * costs bytes: the room never sees minute two of a montage it has already
- * looped through twice. The opening stretch is also the strongest — the X Pub
- * sign, the DJ, the bar, the tables.
+ * costs bytes: nobody watches minute two of a montage they have already looped
+ * through twice. The opening stretch is also the strongest — the X Pub sign,
+ * the DJ, the bar, the tables.
  */
-const HERO_SECONDS = 25;
+const HERO_SECONDS = 20;
 
 /**
- * The hero loop is a full-bleed background, not a tile: its weight is on the
- * critical path, so it trades sharpness for size.
+ * The hero is the one clip whose sharpness is worth bytes, because it is
+ * full-bleed and the panel is wider than the source.
  *
- * Measured on the real 60s 720x1280 source: crf 36/medium ≈ 3.2 MB,
- * crf 39/slow ≈ 2.5 MB, crf 41/slow ≈ 2.1 MB. The source is a dim handheld
- * clip and the panel scales it up anyway, so the last two crf points cost less
- * visibly than the ~1 MB they save. Cutting it to `HERO_SECONDS` then takes
- * most of the rest.
+ * Resolution is what made the old encode soft, so it no longer gets scaled
+ * down; crf 25 at the source's own 720x1280 is a high-quality encode. Frame
+ * rate is the cheap lever left — 24fps on a dim handheld club clip is not
+ * distinguishable from the source's 30, and it buys back roughly a fifth of
+ * the file. Trimming to `HERO_SECONDS` pays for the rest of the increase.
+ *
+ * Measured on the real 60s source: the whole clip at crf 41 / 540x960 was
+ * 0.89 MB; this profile is 12.5 MB → **4.12 MB**, at full resolution.
  */
 function videoProfile(key: string): VideoProfile {
   return key.toLowerCase().startsWith(HERO_PREFIX)
     ? {
-        crf: 41,
+        crf: 25,
         frameRate: 24,
-        maxDimension: MAX_VIDEO_DIMENSION,
+        maxDimension: HERO_MAX_DIMENSION,
         preset: "slow",
         trimSeconds: HERO_SECONDS,
       }

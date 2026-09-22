@@ -18,13 +18,16 @@
  *   drink-bar-*        ↳ Nights tab: pours and bar service
  *   guests-*         people enjoying the venue
  *   team-*           staff at work (bar, DJ booth)
- *   venue-*          interiors, neon, the pool, the DJ booth
+ *   venue-*          the pub's own space: lounge, bar back, neon, pool, booth
  *   exterior-*       the building, the signs and the doorway
  *
  * Upload `drink-negroni.jpg` and it joins the menu on its own; upload
- * `potato.jpg` and the general sections rotate it in. `guests-`, `team-`,
- * `venue-` and `exterior-` are descriptive rather than load-bearing — they
- * exist so a photo's subject is readable from its key.
+ * `potato.jpg` and the general sections rotate it in. `guests-`, `team-` and
+ * `exterior-` are descriptive rather than load-bearing — they exist so a
+ * photo's subject is readable from its key. `drink-` and `venue-` are both
+ * load-bearing: they pin the menu and the VIP Rooms tab respectively, which is
+ * why the two crowd shots from the `brw` series live under `guests-` rather
+ * than `venue-`.
  *
  *   npm run media:rename -- --dry-run
  *   npm run media:rename
@@ -63,8 +66,11 @@ const GUESTS_AND_VENUE: Record<string, string> = {
   "3": "team-01",
   "4": "team-02",
   "5": "guests-02",
-  "8": "venue-01",
-  "9": "venue-02",
+  // Frames 8 and 19 are full of people — seated guests, then the floor mid-set.
+  // `venue-` pins the VIP Rooms tab, and a room is what is being sold there, so
+  // they are filed as guests even though the room is behind them.
+  "8": "guests-12",
+  "9": "venue-02", // the bar's back wall: bottles, and the X Pub roundel
   "10": "guests-03",
   "11": "guests-04",
   "12": "guests-05",
@@ -74,7 +80,7 @@ const GUESTS_AND_VENUE: Record<string, string> = {
   "16": "guests-09",
   "17": "guests-10",
   "18": "guests-11",
-  "19": "venue-03",
+  "19": "guests-13",
   "20": "team-03",
 };
 
@@ -148,6 +154,12 @@ const ENTRIES: Entry[] = [
 
   // The hero still: the X neon roundel, used as the video's poster.
   { contains: "sfsffs (7 of 18).jpg", to: "hero-poster.jpg" },
+
+  // ——— The split for a bucket that already ran the first pass ———
+  // Those two crowd shots went out as `venue-01` / `venue-03`; re-file them so
+  // the VIP tab has nothing but rooms, in both a fresh and an upgraded bucket.
+  { contains: "venue-01.jpg", to: "guests-12.jpg" },
+  { contains: "venue-03.jpg", to: "guests-13.jpg" },
 
   // ——— The same split for a bucket that still has the flat `drink-NN` names ———
   ...Object.entries(DRINK_CATEGORY).map(([number, to]) => ({

@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Starfield } from "@/components/starfield";
+import { BUSINESS } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Legal notice",
+  description: `Ownership, contact details and address for the ${BUSINESS.alternateName} website.`,
+  alternates: { canonical: "/legal" },
+};
 
 export default function LegalPage() {
   return (

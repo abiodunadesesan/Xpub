@@ -9,7 +9,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { Skeleton } from "@/components/skeleton";
 import { useAudioPlayer } from "@/lib/audio-player";
 import { useI18n } from "@/lib/i18n/provider";
-import { formatTime, genreFilters } from "@/lib/tracks";
+import { PLAYLIST, formatTime, genreFilters } from "@/lib/tracks";
 import { useVenueMedia } from "@/lib/venue-media";
 
 /** Enough bars to read as a waveform, few enough to stay cheap to render. */
@@ -18,10 +18,16 @@ const BAR_COUNT = 44;
 /**
  * A fixed bar shape. It is a stylised level meter, not a decode of the audio —
  * the numbers that matter (position, duration) come from the element itself.
+ *
+ * The percentages are formatted here, once, rather than at render: the raw
+ * floats format differently on the server and in the browser (50.35503814370978
+ * against 50.355038%), which React reports as a hydration mismatch on every
+ * one of the 44 bars.
  */
-const BAR_HEIGHTS = Array.from({ length: BAR_COUNT }, (_, index) =>
-  0.3 + 0.7 * Math.abs(Math.sin(index * 1.7) * Math.cos(index * 0.55)),
-);
+const BAR_HEIGHTS = Array.from({ length: BAR_COUNT }, (_, index) => {
+  const level = 0.3 + 0.7 * Math.abs(Math.sin(index * 1.7) * Math.cos(index * 0.55));
+  return `${(level * 100).toFixed(2)}%`;
+});
 
 /** Chips are a pure function of the track list, so they're built once. */
 const GENRE_FILTERS = genreFilters();
@@ -73,7 +79,7 @@ export function MusicSection() {
 
   const progress = duration > 0 ? Math.min(1, position / duration) : 0;
   const remaining = Math.max(0, duration - position);
-  const poster = video ? undefined : "/images/cover.jpg";
+  const poster = video ? undefined : "/media/venue-06.jpg";
 
   return (
     <section id="music" className="relative z-10 overflow-hidden py-20 sm:py-28">
@@ -103,7 +109,7 @@ export function MusicSection() {
                   data-cursor
                   aria-pressed={active}
                   onClick={() => setGenre(filter.id)}
-                  className={`flex min-w-[9rem] flex-col items-start gap-0.5 rounded-full px-4 py-2.5 text-left transition ${
+                  className={`flex min-h-11 min-w-[8.5rem] flex-col items-start gap-0.5 rounded-full px-4 py-2.5 text-left transition sm:min-w-[9rem] ${
                     active
                       ? "bg-[var(--gold)] text-black"
                       : "glass-panel text-white hover:border-[var(--gold)]/60"
@@ -126,9 +132,16 @@ export function MusicSection() {
         {/* `items-start` so the shorter list panel hugs its content instead of
             stretching to the player card's height — an empty half-panel reads as
             something that failed to load. */}
-        <div className="mt-6 grid items-start gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+        {/* `grid-cols-1` is load-bearing, not decoration: an implicit grid
+            track sizes to the item's *min-content*, and a track row's title is
+            `white-space: nowrap`, so on a phone the column measured 470px wide
+            and the clipped half of the player hung off the screen. */}
+        <div className="mt-6 grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
           {/* ——— The player ——— */}
-          <Reveal className="glass-panel flex flex-col p-4 sm:p-5">
+          <Reveal
+            data-testid="music-player"
+            className="glass-panel flex min-w-0 flex-col p-4 sm:p-5"
+          >
             <p className="font-label text-[10px] text-white/45">
               {playable ? t.music.corner.nowPlaying : t.music.corner.lastPlayed}
             </p>
@@ -154,7 +167,7 @@ export function MusicSection() {
                   />
                 ) : (
                   <Image
-                    src="/images/cover.jpg"
+                    src="/media/venue-06.jpg"
                     alt={t.music.corner.liveFrom}
                     fill
                     sizes="(max-width: 1024px) 90vw, 45vw"
@@ -188,7 +201,7 @@ export function MusicSection() {
                     key={index}
                     className="flex-1 rounded-sm transition-colors duration-500"
                     style={{
-                      height: `${height * 100}%`,
+                      height,
                       background:
                         index / BAR_COUNT <= progress ? "var(--gold)" : "rgba(255,255,255,0.2)",
                     }}
@@ -219,7 +232,7 @@ export function MusicSection() {
                   data-cursor
                   onClick={previous}
                   aria-label={t.music.corner.previous}
-                  className="glass-panel inline-flex h-11 w-11 items-center justify-center text-white transition hover:border-[var(--gold)]/70 hover:text-[var(--gold)]"
+                  className="glass-panel inline-flex h-11 w-11 shrink-0 items-center justify-center text-white transition hover:border-[var(--gold)]/70 hover:text-[var(--gold)]"
                 >
                   <SkipBack className="h-4 w-4" />
                 </button>
@@ -247,7 +260,7 @@ export function MusicSection() {
                   data-cursor
                   onClick={next}
                   aria-label={t.music.corner.next}
-                  className="glass-panel inline-flex h-11 w-11 items-center justify-center text-white transition hover:border-[var(--gold)]/70 hover:text-[var(--gold)]"
+                  className="glass-panel inline-flex h-11 w-11 shrink-0 items-center justify-center text-white transition hover:border-[var(--gold)]/70 hover:text-[var(--gold)]"
                 >
                   <SkipForward className="h-4 w-4" />
                 </button>
@@ -290,7 +303,11 @@ export function MusicSection() {
           </Reveal>
 
           {/* ——— The list ——— */}
-          <Reveal delay={0.08} className="glass-panel p-4 sm:p-5">
+          <Reveal
+            delay={0.08}
+            data-testid="music-playlist"
+            className="glass-panel min-w-0 p-4 sm:p-5"
+          >
             <p className="font-label text-[10px] text-white/45">{t.music.corner.onRotation}</p>
 
             <ul className="mt-4 space-y-2">
@@ -314,7 +331,7 @@ export function MusicSection() {
                         className="h-2.5 w-2.5 shrink-0 rounded-full"
                         style={{ background: track.accent }}
                       />
-                      <span className="min-w-0 flex-1">
+                      <span className="min-w-0 flex-1 overflow-hidden">
                         <span className="block truncate font-body text-sm font-medium text-white">
                           {track.title}
                         </span>
@@ -335,12 +352,44 @@ export function MusicSection() {
             </ul>
 
             <p className="mt-4 font-serif text-sm italic text-white/50">{t.music.corner.note}</p>
+
+            {/* The venue's own playlist: the rotation above is what the site
+                can talk about track by track, this is the full night. */}
+            <div className="glass-card mt-4 p-4">
+              <p className="font-label text-[10px] text-[var(--gold)]">
+                {t.music.corner.playlistTitle}
+              </p>
+              <p className="mt-2 font-serif text-sm leading-6 text-white/75">
+                {t.music.corner.playlistLead}
+              </p>
+              <div className="mt-3 overflow-hidden rounded-xl">
+                <iframe
+                  src={PLAYLIST.embed}
+                  title={`${t.music.corner.playlistTitle} — Spotify`}
+                  width="100%"
+                  height="352"
+                  loading="lazy"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  className="block w-full border-0"
+                />
+              </div>
+              <a
+                href={PLAYLIST.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor
+                className="mt-3 inline-flex items-center gap-2 font-label text-[10px] text-[var(--gold)] transition hover:text-white"
+              >
+                {t.music.corner.openPlaylist}
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
           </Reveal>
         </div>
 
         {/* ——— The week ——— */}
         <RevealGroup
-          className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           stagger={0.06}
         >
           {t.music.sets.map((set) => (

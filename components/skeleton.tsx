@@ -18,7 +18,7 @@ export function Skeleton({ className = "" }: SkeletonProps) {
 export function HeroSkeleton() {
   return (
     <div
-      className="mx-auto grid min-h-[100svh] max-w-7xl items-center gap-8 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-12 lg:px-8"
+      className="mx-auto grid min-h-[100svh] max-w-7xl grid-cols-1 items-center gap-8 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-12 lg:px-8"
       aria-busy
       aria-label="Loading"
     >

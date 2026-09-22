@@ -24,7 +24,6 @@ import { promisify } from "node:util";
 
 const run = promisify(execFile);
 
-const bucket = process.env.R2_BUCKET_NAME ?? "xpub-media";
 const publicBase = process.env.R2_PUBLIC_DOMAIN ?? "pub-109bf5c952674bbcb07de2a87309b58d.r2.dev";
 
 /** The master clip the segments are cut from. */

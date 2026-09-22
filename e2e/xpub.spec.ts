@@ -101,6 +101,18 @@ test.describe("X Pub Girne — premium site", () => {
     await expect(primary).toBeAttached();
     await expect(outline).toBeAttached();
 
+    // The CTA sits inside a <Reveal>, which fades its block in once it enters
+    // the viewport. Reading styles in the same tick as `scrollIntoViewIfNeeded`
+    // samples the animation's first frame and sees opacity 0, so wait for the
+    // reveal to settle before measuring. The assertions below are about
+    // contrast, not about how fast the animation runs.
+    await expect
+      .poll(
+        async () => Number(await primary.evaluate((el) => getComputedStyle(el).opacity)),
+        { timeout: 10_000 },
+      )
+      .toBeGreaterThan(0.9);
+
     const primaryStyles = await primary.evaluate((el) => {
       const s = getComputedStyle(el);
       return {
@@ -133,11 +145,15 @@ test.describe("X Pub Girne — premium site", () => {
   });
 
   test("background music control is present and clickable", async ({ page }) => {
-    const btn = page.getByRole("button", { name: /background music/i });
-    await expect(btn).toBeAttached({ timeout: 25_000 });
+    // Two legitimate states. With audio bundled it is a play/pause button; with
+    // none — the rotation is Spotify tracks, which cannot be downloaded — it is
+    // a link to the playlist, because a play button that does nothing reads as
+    // a broken site. Both are "the music control is there and works".
+    const control = page.locator("[data-music-toggle], a[href*='open.spotify.com/playlist']").first();
+    await expect(control).toBeAttached({ timeout: 25_000 });
     // Spotify iframe boot can be slow / blocked; force click avoids Next overlay intercepts
-    await btn.click({ force: true });
-    await expect(btn).toBeAttached();
+    await control.click({ force: true });
+    await expect(control).toBeAttached();
   });
 
   test("Che Bar font stack CSS variables are applied", async ({ page }) => {

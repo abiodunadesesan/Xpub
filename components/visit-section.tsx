@@ -17,7 +17,7 @@ export function VisitSection() {
         className="absolute inset-x-0 bottom-0 h-28 bg-[var(--gold)]/85 skew-footer"
       />
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
         <Reveal>
           <SectionHeading
             eyebrow={t.visit.eyebrow}

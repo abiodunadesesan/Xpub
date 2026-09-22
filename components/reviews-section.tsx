@@ -19,7 +19,7 @@ export function ReviewsSection() {
           <p className="mt-4 font-serif text-base text-white/60">{t.reviews.summary}</p>
         </Reveal>
 
-        <RevealGroup className="grid gap-4 md:grid-cols-2" stagger={0.1}>
+        <RevealGroup className="grid grid-cols-1 gap-4 md:grid-cols-2" stagger={0.1}>
           {t.reviews.items.map((review) => (
             <blockquote key={review.name} className="glass-card p-6 sm:p-7">
               <div className="flex items-center justify-between gap-3">
