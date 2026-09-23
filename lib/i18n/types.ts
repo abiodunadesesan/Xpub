@@ -41,7 +41,21 @@ export type Dictionary = {  brand: {
     >;
     note: string;
   };
-  gallery: { eyebrow: string; titleTop: string; titleBottom: string };
+  gallery: {
+    eyebrow: string;
+    titleTop: string;
+    titleBottom: string;
+    /**
+     * Counts line above the grid. A template rather than a sentence because
+     * the numbers move: `{moments} and {clips}` are substituted, so a language
+     * that counts or orders them differently can say so.
+     */
+    summary: string;
+    /** Hover label on a clip tile. */
+    open: string;
+    /** Hover label on a photo tile. */
+    view: string;
+  };
   music: {
     eyebrow: string;
     titleTop: string;
@@ -59,7 +73,7 @@ export type Dictionary = {  brand: {
       lastPlayed: string;
       side: string;
       onRotation: string;
-      openInSpotify: string;
+      /** Marks a track in the list that only exists on Spotify. */
       onSpotify: string;
       /** The venue's Spotify playlist, shown under the rotation. */
       playlistTitle: string;
@@ -67,7 +81,6 @@ export type Dictionary = {  brand: {
       openPlaylist: string;
       bundled: string;
       spotifyOnly: string;
-      bothSources: string;
       liveFrom: string;
       note: string;
       /** Named apart from `ui.playMusic` so the two controls stay distinguishable. */
@@ -137,5 +150,19 @@ export type Dictionary = {  brand: {
     closeMenu: string;
     backToTop: string;
     whatsapp: string;
+    /** Icon-only dismiss, used by the photo lightbox. */
+    close: string;
+    /** Lightbox transport — apart from `music.corner`'s track controls. */
+    previous: string;
+    next: string;
+    /**
+     * Accessible name for the icon-only phone links.
+     *
+     * Both the visit panel and the footer show the number as an icon rather
+     * than printing the digits, so this is the only thing that tells a screen
+     * reader what the link does — and the number is appended to it at the call
+     * site, which is why it says "Call" and not "Call us on +90 …".
+     */
+    call: string;
   };
 };

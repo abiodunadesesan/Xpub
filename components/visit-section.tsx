@@ -1,8 +1,8 @@
 "use client";
 
-import { socialIconMap } from "@/components/social-icons";
+import { PhoneIcon, socialIconMap } from "@/components/social-icons";
 import { XPubMap } from "@/components/xpub-map";
-import { socials } from "@/lib/socials";
+import { socialLabel, socials } from "@/lib/socials";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { useI18n } from "@/lib/i18n/provider";
@@ -46,25 +46,34 @@ export function VisitSection() {
             >
               {t.visit.mapsLabel}
             </a>
+            {/*
+              The number as an icon, not as text.
+
+              The digits are still the link's accessible name, so a screen
+              reader announces exactly what it dials — but nothing on the page
+              prints them.
+            */}
             <a
               href={t.visit.phoneHref}
               data-cursor
-              className="glass-btn-outline inline-flex min-h-12 items-center px-6 text-sm"
+              aria-label={`${t.ui.call} — ${t.visit.phone}`}
+              className="glass-btn-outline inline-flex h-12 w-12 items-center justify-center"
             >
-              Call {t.visit.phone}
+              <PhoneIcon className="h-5 w-5" />
             </a>
             <ul className="flex items-center gap-2">
               {socials
                 .filter((social) => social.icon !== "phone")
                 .map((social) => {
                   const Icon = socialIconMap[social.icon];
+                  const label = socialLabel(social.icon, t);
                   return (
                     <li key={social.href}>
                       <a
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={social.label}
+                        aria-label={label}
                         data-cursor
                         className="glass-panel inline-flex h-12 w-12 items-center justify-center text-white transition hover:border-[var(--gold)] hover:text-[var(--gold)]"
                       >

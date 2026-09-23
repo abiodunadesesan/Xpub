@@ -309,7 +309,17 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
         // quietly keep the previous track loaded behind a "now playing" label.
         src={playable ? current.src ?? undefined : undefined}
         autoPlay
-        preload="auto"
+        /*
+         * `metadata`, not `auto`.
+         *
+         * `auto` invites the browser to download the whole file up front, and
+         * the rotation is two full-length tracks — 16 MB of audio pulled down
+         * during first paint, for sound that (by browser policy) cannot even
+         * start until the visitor interacts. `metadata` fetches the header, so
+         * the duration and the scrubber still work, and the audio itself
+         * streams on the first play.
+         */
+        preload="metadata"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onTimeUpdate={(event) => setPosition(event.currentTarget.currentTime)}

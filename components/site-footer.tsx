@@ -1,10 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { SeeYouSoon } from "@/components/see-you-soon";
-import { FacebookIcon, InstagramIcon, WhatsAppIcon } from "@/components/social-icons";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  PhoneIcon,
+  WhatsAppIcon,
+} from "@/components/social-icons";
 import { useI18n } from "@/lib/i18n/provider";
-import { WHATSAPP_HREF } from "@/lib/site";
+import { BUSINESS, PHONE_HREF, WHATSAPP_HREF } from "@/lib/site";
 
 /**
  * The end of the page.
@@ -26,6 +32,8 @@ export function SiteFooter() {
     { href: "#visit", label: t.nav.visit },
   ];
 
+  // The number is an icon here too, never printed. Its accessible name still
+  // carries the digits, exactly as the visit panel's does.
   const follow = [
     {
       href: "https://www.instagram.com/xpubgirne/",
@@ -38,6 +46,11 @@ export function SiteFooter() {
       Icon: FacebookIcon,
     },
     { href: WHATSAPP_HREF, label: t.footer.whatsapp, Icon: WhatsAppIcon },
+    {
+      href: PHONE_HREF,
+      label: `${t.ui.call} — ${BUSINESS.telephone}`,
+      Icon: PhoneIcon,
+    },
   ];
 
   return (
@@ -60,8 +73,17 @@ export function SiteFooter() {
 
         <div className="mt-14 grid gap-10 border-t border-white/10 pt-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr] lg:gap-8">
           <div>
-            <p className="font-display text-3xl leading-none text-[var(--yellow)]">{t.brand.name}</p>
-            <p className="mt-3 font-label text-[10px] uppercase tracking-[0.3em] text-white/60">
+            {/* The mark, not the name set in type. The header and the hero
+                already lead with it, and a footer that spells the same name in
+                a third style reads as a different brand. */}
+            <Image
+              src="/brand/logo.webp"
+              alt={`${t.brand.name} ${t.brand.city}`}
+              width={660}
+              height={620}
+              className="brand-emblem h-20 w-auto"
+            />
+            <p className="mt-4 font-label text-[10px] uppercase tracking-[0.3em] text-white/60">
               {t.footer.nightlife}
             </p>
             <address className="mt-6 font-serif text-base leading-7 text-white/75 not-italic">
@@ -118,13 +140,6 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
-            <a
-              href={t.visit.phoneHref}
-              data-cursor
-              className="mt-6 inline-flex font-body text-sm text-white/75 transition hover:text-[var(--yellow)]"
-            >
-              {t.visit.phone}
-            </a>
           </div>
         </div>
 

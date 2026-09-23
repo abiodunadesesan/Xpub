@@ -35,11 +35,10 @@ export function ExperienceSection() {
               type="button"
               data-cursor
               onClick={() => setActive(index)}
-              className={`min-h-10 rounded-full px-4 py-2 font-label text-[11px] transition ${
-                active === index
-                  ? "bg-[var(--gold)] text-black shadow-[0_8px_24px_rgba(184,142,93,0.35)]"
-                  : "glass-panel text-white/85 hover:border-[var(--gold)]/50"
-              }`}
+              // Both the styling and the announced state come from this, so the
+              // selected pill can never be a purely visual idea.
+              aria-pressed={active === index}
+              className="tab-pill min-h-10 rounded-full px-4 py-2 font-label text-[11px]"
             >
               {entry.title}
             </button>

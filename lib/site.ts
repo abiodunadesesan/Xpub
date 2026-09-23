@@ -27,8 +27,14 @@ export const BUSINESS = {
   alternateName: "X Pub Girne",
   /** Matches `brand.tagline` in the dictionaries. */
   slogan: "From first pour to last call",
+  /**
+   * The one description the meta tags, the Open Graph card and the structured
+   * data all share. "Kyrenia" is included because it is the English name of
+   * the same town — the venue is searched for under both, and a description
+   * that only says Girne misses half of those queries.
+   */
   description:
-    "X Pub is a prestigious nightlife spot in Girne, Northern Cyprus, with VIP rooms, live DJs every night, weekly promotions, and late closing at 4 AM.",
+    "X Pub is a prestigious nightlife spot in Girne (Kyrenia), Northern Cyprus — VIP rooms, live DJs every night, cocktails and cold pours, weekly promotions, and late closing at 4 AM.",
   street: "Şht. Fehmi Ercan Sk No:13",
   locality: "Girne",
   postalCode: "9920",

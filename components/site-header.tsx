@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { socialIconMap } from "@/components/social-icons";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { socials } from "@/lib/socials";
+import { socialLabel, socials } from "@/lib/socials";
 import { useI18n } from "@/lib/i18n/provider";
 import { useScrollLock } from "@/lib/scroll-lock";
 
@@ -80,13 +80,14 @@ export function SiteHeader() {
             <ul className="hidden items-center gap-3 sm:flex">
               {socials.map((social) => {
                 const Icon = socialIconMap[social.icon];
+                const label = socialLabel(social.icon, t);
                 return (
                   <li key={social.href}>
                     <a
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={social.label}
+                      aria-label={label}
                       data-cursor
                       className="inline-flex h-8 w-8 items-center justify-center text-white transition hover:text-[var(--gold)]"
                     >

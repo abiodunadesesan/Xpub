@@ -51,6 +51,16 @@
 html {
   scroll-behavior: auto;
   /*
+   * Kill the browser's own tap flash.
+   *
+   * On a phone every link and button here is a rounded pill or tile on black,
+   * and the default highlight is painted *over* it in a colour the page never
+   * chose — grey on iOS, a blue/green wash on several Android browsers, which
+   * is what makes a tapped gold tab briefly look iridescent. Nothing is lost by
+   * removing it: the `:active` states below give deliberate feedback instead.
+   */
+  -webkit-tap-highlight-color: transparent;
+  /*
    * The canvas colour, which is not the same thing as the body's.
    *
    * Next hides the body until the stylesheet has landed (its flash-of-unstyled
@@ -330,6 +340,51 @@ body.cursor-ready * {
 .glass-btn-outline:hover {
   background: rgba(184, 142, 93, 0.92);
   color: #0a0a0a;
+}
+
+/*
+ * Category pill — the "night to dawn" tabs and the menu tabs.
+ *
+ * Deliberately not `glass-panel`. `backdrop-filter` on a small translucent
+ * rounded element makes some mobile GPUs fringe the edges into colour, and at
+ * this size the blur has nothing to show anyway. A flat tinted surface is the
+ * same look without the artefact, and it gives the tap state something honest
+ * to change.
+ *
+ * `aria-pressed` is the styling hook, so a pill cannot look selected without
+ * also telling assistive tech that it is.
+ */
+.tab-pill {
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.88);
+  touch-action: manipulation;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    transform 120ms ease;
+}
+
+.tab-pill:hover {
+  border-color: rgba(184, 142, 93, 0.6);
+  color: #fff;
+}
+
+.tab-pill:active {
+  transform: scale(0.97);
+}
+
+.tab-pill[aria-pressed="true"] {
+  border-color: transparent;
+  background-color: var(--gold);
+  color: #0a0a0a;
+  box-shadow: 0 8px 24px rgba(184, 142, 93, 0.35);
+}
+
+.tab-pill:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
 }
 
 .skew-wide {

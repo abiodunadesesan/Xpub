@@ -4,6 +4,7 @@ import { ExternalLink, Pause, Play, SkipBack, SkipForward } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
+import { LazyVideo } from "@/components/lazy-video";
 import { Reveal, RevealGroup } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { Skeleton } from "@/components/skeleton";
@@ -153,17 +154,12 @@ export function MusicSection() {
                 {isLoading && !video ? (
                   <Skeleton className="h-full w-full" />
                 ) : video?.url ? (
-                  <video
+                  <LazyVideo
                     key={video.url}
-                    className="h-full w-full object-cover"
                     src={video.url}
                     poster={poster}
-                    muted
-                    autoPlay
-                    loop
-                    playsInline
-                    preload="metadata"
-                    aria-label={t.music.corner.liveFrom}
+                    label={t.music.corner.liveFrom}
+                    className="h-full w-full object-cover"
                   />
                 ) : (
                   <Image
@@ -267,39 +263,17 @@ export function MusicSection() {
               </div>
             </div>
 
-            {current.spotify ? (
-              <>
-                <a
-                  href={current.spotify.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-cursor
-                  className="mt-4 inline-flex items-center gap-2 font-label text-[10px] text-[var(--gold)] transition hover:text-white"
-                >
-                  {t.music.corner.openInSpotify}
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-                <div className="mt-3 overflow-hidden rounded-xl">
-                  <iframe
-                    key={current.spotify.embed}
-                    src={current.spotify.embed}
-                    title={`${current.title} — Spotify`}
-                    width="100%"
-                    height="152"
-                    loading="lazy"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    className="block w-full border-0"
-                  />
-                </div>
-                <p className="mt-2 font-body text-[11px] text-white/40">
-                  {playable ? t.music.corner.bothSources : t.music.corner.spotifyOnly}
-                </p>
-              </>
-            ) : (
-              <p className="mt-4 font-serif text-sm italic text-white/55">
-                {t.music.corner.bundled}
-              </p>
-            )}
+            {/*
+              No per-track Spotify card here any more. It put a second player
+              (with its own artwork, its own transport and its own 152px of
+              chrome) directly under this one, and the house playlist below
+              already opens Spotify for anyone who wants it. What is left is
+              the one thing that card was actually telling the visitor: where
+              this particular track plays from.
+            */}
+            <p className="mt-4 font-serif text-sm italic text-white/55">
+              {playable ? t.music.corner.bundled : t.music.corner.spotifyOnly}
+            </p>
           </Reveal>
 
           {/* ——— The list ——— */}

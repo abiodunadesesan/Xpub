@@ -1,3 +1,4 @@
+import { TrackingIn } from "@/components/animated-text";
 import { SplitHeadline } from "@/components/split-headline";
 
 type SectionHeadingProps = {
@@ -14,7 +15,9 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <>
-      <p className="font-label text-[11px] text-[var(--gold)]">{eyebrow}</p>
+      <p className="font-label text-[11px] text-[var(--gold)]">
+        <TrackingIn text={eyebrow} />
+      </p>
       <div className="mt-3">
         <SplitHeadline first={titleTop} second={titleBottom} />
       </div>

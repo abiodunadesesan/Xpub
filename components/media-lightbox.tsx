@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect } from "react";
 import { useScrollLock } from "@/lib/scroll-lock";
+import { useI18n } from "@/lib/i18n/provider";
 
 export type LightboxItem = {
   src: string;
@@ -25,6 +26,7 @@ export function MediaLightbox({
   onClose,
   onChange,
 }: MediaLightboxProps) {
+  const { t } = useI18n();
   const open = index !== null && items[index];
   const item = open ? items[index] : null;
 
@@ -59,7 +61,7 @@ export function MediaLightbox({
           <button
             type="button"
             data-cursor
-            aria-label="Close"
+            aria-label={t.ui.close}
             onClick={onClose}
             className="glass-btn absolute right-4 top-24 z-10 inline-flex h-11 w-11 items-center justify-center sm:top-6"
           >
@@ -107,7 +109,7 @@ export function MediaLightbox({
                   onChange((index! - 1 + items.length) % items.length);
                 }}
               >
-                Prev
+                {t.ui.previous}
               </button>
               <button
                 type="button"
@@ -118,7 +120,7 @@ export function MediaLightbox({
                   onChange((index! + 1) % items.length);
                 }}
               >
-                Next
+                {t.ui.next}
               </button>
             </div>
           ) : null}

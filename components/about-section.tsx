@@ -48,7 +48,7 @@ export function AboutSection() {
             ) : sideImage ? (
               <Image
                 src={sideImage}
-                alt="X Pub atmosphere"
+                alt={`${t.brand.name} ${t.brand.city} — ${t.nav.about}`}
                 width={800}
                 height={900}
                 sizes="(max-width: 1024px) 90vw, 40vw"

@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Cinzel, Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n/provider";
-import { BUSINESS, OPEN_DAYS, PROFILE_URLS, SITE_URL } from "@/lib/site";
+import { BUSINESS, SITE_URL } from "@/lib/site";
+import { structuredData } from "@/lib/structured-data";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -38,14 +39,22 @@ export const metadata: Metadata = {
   },
   description: BUSINESS.description,
   applicationName: BUSINESS.alternateName,
+  // Girne is the Turkish name and Kyrenia the English one for the same town;
+  // searches arrive in both, so both are here.
   keywords: [
     "X Pub Girne",
+    "X Pub Kyrenia",
     "Girne nightlife",
+    "Kyrenia nightlife",
     "Kyrenia bar",
+    "Girne bar",
     "Northern Cyprus nightclub",
     "live DJ Girne",
+    "live music Kyrenia",
     "VIP rooms Girne",
-    "cocktails Girne",
+    "cocktail bar Girne",
+    "cocktails Kyrenia",
+    "Girne promotions",
     "open until 4 AM Girne",
   ],
   authors: [{ name: BUSINESS.name, url: SITE_URL }],
@@ -101,64 +110,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-/**
- * The venue as a schema.org `BarOrPub`, plus the site that publishes it.
- *
- * Every field is a fact the page already states — the address, the phone, the
- * 4 AM close and the 4.4/9 rating shown in the reviews and about sections. A
- * crawler that finds structured data contradicting the visible content will
- * discount both, so nothing here is embellished.
- */
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BarOrPub",
-      "@id": `${SITE_URL}/#venue`,
-      name: BUSINESS.name,
-      alternateName: BUSINESS.alternateName,
-      slogan: BUSINESS.slogan,
-      description: BUSINESS.description,
-      url: SITE_URL,
-      image: `${SITE_URL}/brand/og.jpg`,
-      logo: `${SITE_URL}/brand/logo.webp`,
-      telephone: BUSINESS.telephone,
-      hasMap: BUSINESS.mapsHref,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: BUSINESS.street,
-        addressLocality: BUSINESS.locality,
-        addressRegion: BUSINESS.region,
-        postalCode: BUSINESS.postalCode,
-        addressCountry: BUSINESS.country,
-      },
-      sameAs: PROFILE_URLS,
-      // No `opens` value: the site states a 4 AM close but never an opening
-      // time, and guessing one would be published as fact.
-      openingHoursSpecification: {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [...OPEN_DAYS],
-        closes: BUSINESS.closes,
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: BUSINESS.rating.value,
-        reviewCount: BUSINESS.rating.count,
-        bestRating: 5,
-        worstRating: 1,
-      },
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: BUSINESS.alternateName,
-      inLanguage: "en",
-      publisher: { "@id": `${SITE_URL}/#venue` },
-    },
-  ],
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -176,7 +127,7 @@ export default function RootLayout({
           // Server-rendered from a literal above, so there is no user input to
           // escape — `<` is the only sequence that could break out of the tag.
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(structuredData()).replace(/</g, "\\u003c"),
           }}
         />
         <LanguageProvider>{children}</LanguageProvider>

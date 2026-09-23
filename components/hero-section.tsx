@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { RevealWords } from "@/components/animated-text";
 import { Reveal } from "@/components/reveal";
 import { Skeleton } from "@/components/skeleton";
 import { useVenueMedia } from "@/lib/venue-media";
@@ -83,13 +84,21 @@ export function HeroSection() {
               </motion.div>
             </div>
 
+            {/* Above the fold, so this one plays on mount rather than waiting
+                for a scroll it will never get. */}
             <h1 className="mt-10 font-display leading-[0.92]">
-              <span className="block text-[clamp(1.85rem,5vw,3.2rem)] tracking-[0.08em] text-[var(--gold)]">
-                {t.hero.headlineTop}
-              </span>
-              <span className="mt-1 block text-[clamp(1.85rem,5vw,3.2rem)] tracking-[0.08em] text-white">
-                {t.hero.headlineBottom}
-              </span>
+              <RevealWords
+                mount
+                delay={0.25}
+                text={t.hero.headlineTop}
+                className="block text-[clamp(1.85rem,5vw,3.2rem)] tracking-[0.08em] text-[var(--gold)]"
+              />
+              <RevealWords
+                mount
+                delay={0.42}
+                text={t.hero.headlineBottom}
+                className="mt-1 block text-[clamp(1.85rem,5vw,3.2rem)] tracking-[0.08em] text-white"
+              />
             </h1>
 
             <div className="mt-7 max-w-md space-y-4 font-serif text-lg leading-8 text-white/85">
@@ -126,12 +135,12 @@ export function HeroSection() {
                         loop
                         playsInline
                         preload="auto"
-                        aria-label="X Pub Girne"
+                        aria-label={`${t.brand.name} ${t.brand.city} — ${t.hero.headlineTop}`}
                       />
                     ) : (
                       <Image
                         src={imageSrc}
-                        alt="X Pub Girne neon"
+                        alt={`${t.brand.name} ${t.brand.city} — ${t.hero.headlineTop}`}
                         fill
                         priority
                         sizes="(max-width: 1024px) 90vw, 50vw"

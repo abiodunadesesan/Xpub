@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { LazyVideo } from "@/components/lazy-video";
 import { Reveal, RevealGroup } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { useI18n } from "@/lib/i18n/provider";
@@ -17,6 +18,10 @@ export function MenuSection() {
   const items = t.menu.categories[tab];
 
   const tabIndex = Math.max(0, t.menu.tabs.findIndex((entry) => entry.id === tab));
+  // The translated name of the open tab, for the alt text on its tiles — the
+  // raw id ("cocktails") is an implementation detail, not something to hand a
+  // crawler in a language the visitor didn't choose.
+  const tabLabel = t.menu.tabs[tabIndex]?.label ?? tab;
   // Each tab owns its pack, so switching visibly replaces every tile — and so
   // the strip is only ever drinks: `drink-cocktail-*` on Cocktails,
   // `drink-bar-*` on Nights. A tab short on its own photos borrows from the
@@ -51,7 +56,7 @@ export function MenuSection() {
                 <Image
                   key={pack.cover.url}
                   src={pack.cover.url}
-                  alt={`X Pub ${tab} cover`}
+                  alt={`${t.brand.name} ${t.brand.city} — ${tabLabel}`}
                   fill
                   loading="lazy"
                   sizes="(max-width: 640px) 100vw, 60vw"
@@ -67,7 +72,7 @@ export function MenuSection() {
               >
                 <Image
                   src={still.url}
-                  alt={`X Pub ${tab}`}
+                  alt={`${t.brand.name} ${t.brand.city} — ${tabLabel}`}
                   fill
                   loading="lazy"
                   sizes="(max-width: 640px) 50vw, 25vw"
@@ -78,19 +83,14 @@ export function MenuSection() {
 
             {clip?.url ? (
               <div className="glass-card relative col-span-2 aspect-square min-w-0 overflow-hidden sm:col-span-2">
-                <video
-                  // Remounts when the tab swaps the clip, so it autoplays the
-                  // new one instead of holding the previous tab's frame.
+                <LazyVideo
+                  // Remounts when the tab swaps the clip, so it plays the new
+                  // one instead of holding the previous tab's frame.
                   key={clip.url}
-                  className="h-full w-full object-cover"
                   src={clip.url}
-                  muted
-                  autoPlay
-                  loop
-                  playsInline
-                  preload="metadata"
                   poster={pack?.cover?.url}
-                  aria-label={`X Pub ${tab} drinks`}
+                  label={`${t.brand.name} ${t.brand.city} — ${tabLabel}`}
+                  className="h-full w-full object-cover"
                 />
               </div>
             ) : null}
@@ -104,11 +104,7 @@ export function MenuSection() {
                 data-cursor
                 onClick={() => setTab(entry.id)}
                 aria-pressed={tab === entry.id}
-                className={`min-h-11 px-4 py-2.5 font-label text-[11px] transition ${
-                  tab === entry.id
-                    ? "bg-[var(--gold)] text-black"
-                    : "glass-panel text-white hover:border-[var(--gold)]/60"
-                }`}
+                className="tab-pill min-h-11 px-4 py-2.5 font-label text-[11px]"
               >
                 {entry.label}
               </button>

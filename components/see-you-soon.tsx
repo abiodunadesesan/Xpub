@@ -1,17 +1,34 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 
 const LINE = "SEE YOU SOON";
 
+/** The letters light up under a real pointer — not under a finger. */
+const FINE_POINTER = "(pointer: fine)";
+
+const subscribeToPointer = (onChange: () => void) => {
+  const query = window.matchMedia(FINE_POINTER);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+};
+
+const hasFinePointer = () => window.matchMedia(FINE_POINTER).matches;
+const noPointerOnTheServer = () => false;
+
 export function SeeYouSoon() {
   const refs = useRef<(HTMLSpanElement | null)[]>([]);
-  const [enabled, setEnabled] = useState(false);
+  // A subscription, not an effect that sets state: the answer is the device's,
+  // and it can change mid-session (a tablet gaining a mouse), so the letters
+  // should follow it rather than latch on first paint.
+  const enabled = useSyncExternalStore(
+    subscribeToPointer,
+    hasFinePointer,
+    noPointerOnTheServer,
+  );
 
   useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    if (!fine) return;
-    setEnabled(true);
+    if (!enabled) return;
 
     const onMove = (e: MouseEvent) => {
       refs.current.forEach((el) => {
@@ -27,7 +44,7 @@ export function SeeYouSoon() {
 
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
-  }, []);
+  }, [enabled]);
 
   return (
     <p

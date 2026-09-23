@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import manifest from "@/lib/media-manifest.json";
+import { photographUrls } from "@/lib/cdn";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -11,27 +11,11 @@ import { SITE_URL } from "@/lib/site";
  *
  * The venue's photos are listed as image entries because they *are* the
  * content of a nightlife site, and they live on the R2 CDN rather than under
- * `/public`. The entry is skipped rather than guessed when the CDN base isn't
- * configured.
+ * `/public`. `/legal` gets none: it is a text page, and padding it with the
+ * venue's photographs would be listing files that page doesn't show.
  */
-function cdnOrigin(): string | null {
-  const base = process.env.R2_PUBLIC_DOMAIN?.trim();
-  if (!base) return null;
-  const trimmed = base.replace(/\/+$/, "");
-  return /^https?:\/\//.test(trimmed) ? trimmed : `https://${trimmed}`;
-}
-
-function encodeKey(key: string) {
-  return key.split("/").map(encodeURIComponent).join("/");
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  const origin = cdnOrigin();
-  const images = origin
-    ? manifest.objects
-        .filter((object) => object.kind === "image")
-        .map((object) => `${origin}/${encodeKey(object.web?.key ?? object.key)}`)
-    : [];
+  const images = photographUrls();
 
   const lastModified = new Date();
 

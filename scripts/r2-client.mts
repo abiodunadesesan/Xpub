@@ -59,6 +59,18 @@ export type Remote = {
   remove: (keys: string[]) => Promise<void>;
 };
 
+/**
+ * What uploaded media is served with, and why it matters.
+ *
+ * R2 sends **no** `Cache-Control` of its own, and the hero clip alone is over
+ * 4 MB — so without this header every visit re-downloads it in full. A week is
+ * the deliberate middle: long enough that a returning visitor pays once, short
+ * enough that re-uploading a photo under the same name shows up without a
+ * cache purge. Objects uploaded before this line existed still carry no header;
+ * re-running the sync is what fixes them.
+ */
+const MEDIA_CACHE_CONTROL = "public, max-age=604800, stale-while-revalidate=86400";
+
 const apiBase = () =>
   `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/r2/buckets/${process.env.R2_BUCKET_NAME}/objects`;
 
@@ -227,6 +239,7 @@ export async function s3Backend(): Promise<Remote> {
           Key: key,
           Body: bytes,
           ContentType: contentTypeFor(key),
+          CacheControl: MEDIA_CACHE_CONTROL,
         }),
       );
     },
@@ -237,6 +250,7 @@ export async function s3Backend(): Promise<Remote> {
           Key: key,
           Body: await readFile(path),
           ContentType: contentTypeFor(key),
+          CacheControl: MEDIA_CACHE_CONTROL,
         }),
       );
     },

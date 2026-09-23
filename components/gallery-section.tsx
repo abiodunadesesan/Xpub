@@ -4,10 +4,12 @@ import Image from "next/image";
 import { useState } from "react";
 import { Reveal } from "@/components/reveal";
 import { GallerySkeleton } from "@/components/skeleton";
+import { LazyVideo } from "@/components/lazy-video";
 import { MediaLightbox, type LightboxItem } from "@/components/media-lightbox";
 import { SectionHeading } from "@/components/section-heading";
 import { useVenueMedia } from "@/lib/venue-media";
 import { useI18n } from "@/lib/i18n/provider";
+import { fill } from "@/lib/i18n/format";
 
 /**
  * Spread the clips evenly through the photo grid instead of clustering them.
@@ -43,22 +45,33 @@ export function GallerySection() {
   const { galleryImages, galleryVideos, isLoading } = useVenueMedia();
   const [active, setActive] = useState<number | null>(null);
 
+  // Every alt is built from the dictionary rather than written out, so it is
+  // both translated and keyword-bearing: the venue's name and town, then what
+  // the picture is of. A bare "photo 1" tells a crawler nothing.
+  const label = `${t.brand.name} ${t.brand.city} — ${t.gallery.titleBottom || t.nav.gallery}`;
+
   const imageItems: LightboxItem[] = galleryImages.map((image, index) => ({
     src: image.url,
-    alt: `X Pub Girne ${index + 1}`,
+    alt: `${label} · ${index + 1}`,
     kind: "image" as const,
   }));
 
   const videoItems: LightboxItem[] = galleryVideos.map((video, index) => ({
     src: video.url,
-    alt: `X Pub clip ${index + 1}`,
+    alt: `${label} · ${t.gallery.open} ${index + 1}`,
     kind: "video" as const,
   }));
 
   const items = interleave(
     imageItems.length > 0
       ? imageItems
-      : [{ src: "/media/about-neon.jpg", alt: "X Pub", kind: "image" as const }],
+      : [
+          {
+            src: "/media/about-neon.jpg",
+            alt: `${t.brand.name} ${t.brand.city}`,
+            kind: "image" as const,
+          },
+        ],
     videoItems,
   );
 
@@ -72,7 +85,10 @@ export function GallerySection() {
             titleBottom={t.gallery.titleBottom || t.nav.gallery}
           />
           <p className="mt-3 font-serif text-sm text-white/50">
-            {items.length} moments · {videoItems.length} clips · tap to open
+            {fill(t.gallery.summary, {
+              moments: items.length,
+              clips: videoItems.length,
+            })}
           </p>
         </Reveal>
 
@@ -92,15 +108,10 @@ export function GallerySection() {
                 className="glass-card group relative aspect-square w-full overflow-hidden text-left"
               >
                 {item.kind === "video" ? (
-                  <video
-                    className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                  <LazyVideo
                     src={item.src}
-                    muted
-                    autoPlay
-                    loop
-                    playsInline
-                    preload="metadata"
-                    aria-label={item.alt}
+                    label={item.alt}
+                    className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                   />
                 ) : (
                   <Image
@@ -114,7 +125,7 @@ export function GallerySection() {
                 )}
                 <span className="pointer-events-none absolute inset-0 bg-black/0 transition group-hover:bg-black/20" />
                 <span className="pointer-events-none absolute bottom-3 left-3 font-label text-[9px] text-white/80 opacity-0 transition group-hover:opacity-100">
-                  {item.kind === "video" ? "Open" : "View"}
+                  {item.kind === "video" ? t.gallery.open : t.gallery.view}
                 </span>
               </button>
             ))}

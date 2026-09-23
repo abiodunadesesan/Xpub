@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Children, useEffect, useState, type ReactNode } from "react";
+import { Children, type ReactNode } from "react";
+import { useMounted } from "@/lib/use-mounted";
 
 type RevealProps = {
   children: ReactNode;
@@ -29,8 +30,7 @@ export function Reveal({
   as = "div",
   "data-testid": testId,
 }: RevealProps) {
-  const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
+  const ready = useMounted();
   const Tag = motion[as];
 
   if (!ready) {
@@ -72,8 +72,7 @@ export function RevealGroup({
   y = 32,
   once = true,
 }: RevealGroupProps) {
-  const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
+  const ready = useMounted();
   const items = Children.toArray(children);
 
   if (!ready) {
