@@ -3,6 +3,7 @@ import { BackgroundMusic } from "@/components/background-music";
 import { BlogSection } from "@/components/blog-section";
 import { CustomCursor } from "@/components/custom-cursor";
 import { ExperienceSection } from "@/components/experience-section";
+import { FloatingActions } from "@/components/floating-actions";
 import { GallerySection } from "@/components/gallery-section";
 import { HeroSection } from "@/components/hero-section";
 import { MenuSection } from "@/components/menu-section";
@@ -25,6 +26,7 @@ export default function Home() {
           <SiteLoader />
           <CustomCursor />
           <BackgroundMusic />
+          <FloatingActions />
           <Starfield />
           <SiteHeader />
           <main className="relative z-10 flex-1">

@@ -113,7 +113,18 @@ export type Dictionary = {  brand: {
     mapsLabel: string;
     mapsHref: string;
   };
-  footer: { nightlife: string; legal: string; visit: string; instagram: string };
+  footer: {
+    nightlife: string;
+    legal: string;
+    visit: string;
+    instagram: string;
+    facebook: string;
+    whatsapp: string;
+    /** Heading over the section links. */
+    explore: string;
+    /** Heading over the off-site profiles. */
+    follow: string;
+  };
   ui: {
     language: string;
     playMusic: string;
@@ -124,5 +135,7 @@ export type Dictionary = {  brand: {
     listenOnSpotify: string;
     openMenu: string;
     closeMenu: string;
+    backToTop: string;
+    whatsapp: string;
   };
 };

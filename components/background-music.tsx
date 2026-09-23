@@ -23,7 +23,7 @@ export function BackgroundMusic() {
 
   if (!hasPlayableTrack) {
     return (
-      <div className="fixed bottom-5 end-5 z-[85]">
+      <div className="fixed bottom-5 end-20 z-[85]">
         <a
           href={PLAYLIST.url}
           target="_blank"
@@ -43,7 +43,10 @@ export function BackgroundMusic() {
   const action = playing ? t.ui.pauseMusic : t.ui.playMusic;
 
   return (
-    <div className="fixed bottom-5 end-5 z-[85] flex items-center gap-2">
+    // `end-20` leaves the bottom-right corner to the WhatsApp button in
+    // `FloatingActions`, which sits at `end-5`; the two share one row rather
+    // than stacking, so neither covers the other on a narrow phone.
+    <div className="fixed bottom-5 end-20 z-[85] flex items-center gap-2">
       <button
         type="button"
         data-cursor

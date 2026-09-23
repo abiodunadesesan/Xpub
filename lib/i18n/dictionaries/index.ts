@@ -134,6 +134,8 @@ const fr = deepMerge(en, {
     nightlife: "Nightlife à Girne",
     legal: "Mentions légales",
     visit: "Venir",
+    explore: "Explorer",
+    follow: "Suivre",
   },
   ui: {
     language: "Langue",
@@ -143,6 +145,8 @@ const fr = deepMerge(en, {
     tapToPlay: "Appuyer pour jouer",
     openMenu: "Ouvrir le menu",
     closeMenu: "Fermer le menu",
+    backToTop: "Haut de page",
+    whatsapp: "Discuter sur WhatsApp",
   },
 });
 
@@ -250,6 +254,8 @@ const tr = deepMerge(en, {
     nightlife: "Girne gece hayatı",
     legal: "Yasal bildirim",
     visit: "Ziyaret",
+    explore: "Keşfet",
+    follow: "Takip et",
   },
   ui: {
     language: "Dil",
@@ -259,6 +265,8 @@ const tr = deepMerge(en, {
     tapToPlay: "Çalmak için dokun",
     openMenu: "Menüyü aç",
     closeMenu: "Menüyü kapat",
+    backToTop: "Başa dön",
+    whatsapp: "WhatsApp ile yazın",
   },
 });
 
@@ -366,6 +374,8 @@ const ru = deepMerge(en, {
     nightlife: "Ночная жизнь Гирне",
     legal: "Правовая информация",
     visit: "Визит",
+    explore: "Разделы",
+    follow: "Соцсети",
   },
   ui: {
     language: "Язык",
@@ -375,6 +385,8 @@ const ru = deepMerge(en, {
     tapToPlay: "Нажмите, чтобы играть",
     openMenu: "Открыть меню",
     closeMenu: "Закрыть меню",
+    backToTop: "Наверх",
+    whatsapp: "Написать в WhatsApp",
   },
 });
 
@@ -383,8 +395,8 @@ const de = deepMerge(en, {
   hero: { cta: "Entdecken" },
   about: { eyebrow: "Unsere Geschichte", titleTop: "Über" },
   visit: { eyebrow: "Finde uns", titleTop: "Besuch", hours: "Täglich geöffnet · Bis 4 Uhr", dogs: "Hunde erlaubt", mapsLabel: "Google Maps" },
-  ui: { language: "Sprache", tapToPlay: "Tippen zum Abspielen", nowPlaying: "Läuft jetzt", openMenu: "Menü öffnen", closeMenu: "Menü schließen" },
-  footer: { nightlife: "Girne Nachtleben", legal: "Impressum", visit: "Besuch" },
+  ui: { language: "Sprache", tapToPlay: "Tippen zum Abspielen", nowPlaying: "Läuft jetzt", openMenu: "Menü öffnen", closeMenu: "Menü schließen", backToTop: "Nach oben", whatsapp: "Über WhatsApp schreiben" },
+  footer: { nightlife: "Girne Nachtleben", legal: "Impressum", visit: "Besuch", explore: "Entdecken", follow: "Folgen" },
 });
 
 const es = deepMerge(en, {
@@ -392,8 +404,8 @@ const es = deepMerge(en, {
   hero: { cta: "Explorar" },
   about: { eyebrow: "Nuestra historia", titleTop: "Sobre" },
   visit: { eyebrow: "Encuéntranos", titleTop: "Visita", hours: "Abierto diario · Cierra a las 4 AM", dogs: "Se admiten perros", mapsLabel: "Google Maps" },
-  ui: { language: "Idioma", tapToPlay: "Toca para reproducir", nowPlaying: "Reproduciendo", openMenu: "Abrir menú", closeMenu: "Cerrar menú" },
-  footer: { nightlife: "Vida nocturna en Girne", legal: "Aviso legal", visit: "Visita" },
+  ui: { language: "Idioma", tapToPlay: "Toca para reproducir", nowPlaying: "Reproduciendo", openMenu: "Abrir menú", closeMenu: "Cerrar menú", backToTop: "Volver arriba", whatsapp: "Escribir por WhatsApp" },
+  footer: { nightlife: "Vida nocturna en Girne", legal: "Aviso legal", visit: "Visita", explore: "Explorar", follow: "Seguir" },
 });
 
 const it = deepMerge(en, {
@@ -401,8 +413,8 @@ const it = deepMerge(en, {
   hero: { cta: "Esplora" },
   about: { eyebrow: "La nostra storia", titleTop: "Su" },
   visit: { eyebrow: "Trovarci", titleTop: "Visita", hours: "Aperti ogni giorno · Chiude alle 4", dogs: "Cani ammessi", mapsLabel: "Google Maps" },
-  ui: { language: "Lingua", tapToPlay: "Tocca per riprodurre", nowPlaying: "In riproduzione", openMenu: "Apri menu", closeMenu: "Chiudi menu" },
-  footer: { nightlife: "Nightlife a Girne", legal: "Note legali", visit: "Visita" },
+  ui: { language: "Lingua", tapToPlay: "Tocca per riprodurre", nowPlaying: "In riproduzione", openMenu: "Apri menu", closeMenu: "Chiudi menu", backToTop: "Torna su", whatsapp: "Scrivici su WhatsApp" },
+  footer: { nightlife: "Nightlife a Girne", legal: "Note legali", visit: "Visita", explore: "Esplora", follow: "Segui" },
 });
 
 const ar = deepMerge(en, {
@@ -410,16 +422,16 @@ const ar = deepMerge(en, {
   hero: { cta: "استكشف" },
   about: { eyebrow: "قصتنا", titleTop: "حول" },
   visit: { eyebrow: "اعثر علينا", titleTop: "زيارة", hours: "مفتوح يومياً · يغلق الساعة 4 صباحاً", dogs: "يُسمح بالكلاب", mapsLabel: "خرائط Google" },
-  ui: { language: "اللغة", tapToPlay: "اضغط للتشغيل", nowPlaying: "يعمل الآن", openMenu: "فتح القائمة", closeMenu: "إغلاق القائمة" },
-  footer: { nightlife: "سهرات غيرنه", legal: "إشعار قانوني", visit: "الزيارة" },
+  ui: { language: "اللغة", tapToPlay: "اضغط للتشغيل", nowPlaying: "يعمل الآن", openMenu: "فتح القائمة", closeMenu: "إغلاق القائمة", backToTop: "إلى الأعلى", whatsapp: "تواصل معنا على واتساب" },
+  footer: { nightlife: "سهرات غيرنه", legal: "إشعار قانوني", visit: "الزيارة", explore: "استكشف", follow: "تابعنا" },
 });
 
 const el = deepMerge(en, {
   nav: { about: "Σχετικά", experience: "Εμπειρία", menu: "Μενού", gallery: "Γκαλερί", music: "Μουσική", blog: "Blog", visit: "Επίσκεψη" },
   hero: { cta: "Εξερεύνηση" },
   visit: { eyebrow: "Βρείτε μας", titleTop: "Επίσκεψη", hours: "Ανοιχτά καθημερινά · Κλείνει 4 π.μ.", dogs: "Επιτρέπονται σκύλοι" },
-  ui: { language: "Γλώσσα", tapToPlay: "Πατήστε για αναπαραγωγή", nowPlaying: "Παίζει τώρα" },
-  footer: { nightlife: "Νυχτερινή ζωή Girne", legal: "Νομική σημείωση", visit: "Επίσκεψη" },
+  ui: { language: "Γλώσσα", tapToPlay: "Πατήστε για αναπαραγωγή", nowPlaying: "Παίζει τώρα", backToTop: "Επιστροφή στην αρχή", whatsapp: "Συνομιλήστε στο WhatsApp" },
+  footer: { nightlife: "Νυχτερινή ζωή Girne", legal: "Νομική σημείωση", visit: "Επίσκεψη", explore: "Εξερεύνηση", follow: "Ακολουθήστε" },
 });
 
 const zh = deepMerge(en, {
@@ -427,40 +439,40 @@ const zh = deepMerge(en, {
   hero: { cta: "探索" },
   about: { eyebrow: "我们的故事", titleTop: "关于" },
   visit: { eyebrow: "找到我们", titleTop: "到访", hours: "每日营业 · 凌晨4点打烊", dogs: "可携犬", mapsLabel: "谷歌地图" },
-  ui: { language: "语言", tapToPlay: "点击播放", nowPlaying: "正在播放", openMenu: "打开菜单", closeMenu: "关闭菜单" },
-  footer: { nightlife: "Girne 夜生活", legal: "法律声明", visit: "到访" },
+  ui: { language: "语言", tapToPlay: "点击播放", nowPlaying: "正在播放", openMenu: "打开菜单", closeMenu: "关闭菜单", backToTop: "返回顶部", whatsapp: "通过 WhatsApp 联系" },
+  footer: { nightlife: "Girne 夜生活", legal: "法律声明", visit: "到访", explore: "探索", follow: "关注" },
 });
 
 const pt = deepMerge(en, {
   nav: { about: "Sobre", experience: "Experiência", menu: "Cardápio", gallery: "Galeria", music: "Música", blog: "Blog", visit: "Visita" },
   hero: { cta: "Explorar" },
   visit: { eyebrow: "Encontre-nos", titleTop: "Visita", hours: "Aberto diariamente · Fecha às 4h", dogs: "Cães permitidos" },
-  ui: { language: "Idioma", tapToPlay: "Toque para tocar", nowPlaying: "A tocar" },
-  footer: { nightlife: "Vida noturna em Girne", legal: "Aviso legal", visit: "Visita" },
+  ui: { language: "Idioma", tapToPlay: "Toque para tocar", nowPlaying: "A tocar", backToTop: "Voltar ao topo", whatsapp: "Falar no WhatsApp" },
+  footer: { nightlife: "Vida noturna em Girne", legal: "Aviso legal", visit: "Visita", explore: "Explorar", follow: "Seguir" },
 });
 
 const pl = deepMerge(en, {
   nav: { about: "O nas", experience: "Doświadczenie", menu: "Menu", gallery: "Galeria", music: "Muzyka", blog: "Blog", visit: "Wizyta" },
   hero: { cta: "Odkryj" },
   visit: { eyebrow: "Znajdź nas", titleTop: "Wizyta", hours: "Codziennie · Do 4:00", dogs: "Psy dozwolone" },
-  ui: { language: "Język", tapToPlay: "Dotknij, by odtworzyć", nowPlaying: "Odtwarzanie" },
-  footer: { nightlife: "Nocne życie Girne", legal: "Nota prawna", visit: "Wizyta" },
+  ui: { language: "Język", tapToPlay: "Dotknij, by odtworzyć", nowPlaying: "Odtwarzanie", backToTop: "Na górę", whatsapp: "Napisz na WhatsApp" },
+  footer: { nightlife: "Nocne życie Girne", legal: "Nota prawna", visit: "Wizyta", explore: "Odkrywaj", follow: "Obserwuj" },
 });
 
 const uk = deepMerge(en, {
   nav: { about: "Про нас", experience: "Атмосфера", menu: "Меню", gallery: "Галерея", music: "Музика", blog: "Блог", visit: "Візит" },
   hero: { cta: "Дивитись" },
   visit: { eyebrow: "Знайдіть нас", titleTop: "Візит", hours: "Щодня · До 4:00", dogs: "Можна з собаками" },
-  ui: { language: "Мова", tapToPlay: "Натисніть, щоб грати", nowPlaying: "Грає" },
-  footer: { nightlife: "Нічне життя Гірне", legal: "Права", visit: "Візит" },
+  ui: { language: "Мова", tapToPlay: "Натисніть, щоб грати", nowPlaying: "Грає", backToTop: "Догори", whatsapp: "Написати у WhatsApp" },
+  footer: { nightlife: "Нічне життя Гірне", legal: "Права", visit: "Візит", explore: "Розділи", follow: "Соцмережі" },
 });
 
 const nl = deepMerge(en, {
   nav: { about: "Over ons", experience: "Beleving", menu: "Menu", gallery: "Galerij", music: "Muziek", blog: "Blog", visit: "Bezoek" },
   hero: { cta: "Ontdek" },
   visit: { eyebrow: "Vind ons", titleTop: "Bezoek", hours: "Dagelijks open · Sluit om 4 uur", dogs: "Honden welkom" },
-  ui: { language: "Taal", tapToPlay: "Tik om af te spelen", nowPlaying: "Speelt nu" },
-  footer: { nightlife: "Girne nachtleven", legal: "Juridische info", visit: "Bezoek" },
+  ui: { language: "Taal", tapToPlay: "Tik om af te spelen", nowPlaying: "Speelt nu", backToTop: "Naar boven", whatsapp: "Chat via WhatsApp" },
+  footer: { nightlife: "Girne nachtleven", legal: "Juridische info", visit: "Bezoek", explore: "Ontdek", follow: "Volgen" },
 });
 
 const ja = deepMerge(en, {
@@ -468,8 +480,8 @@ const ja = deepMerge(en, {
   hero: { cta: "見る" },
   about: { eyebrow: "ストーリー", titleTop: "について" },
   visit: { eyebrow: "アクセス", titleTop: "訪れる", hours: "毎日営業 · 午前4時閉店", dogs: "犬同伴可", mapsLabel: "Googleマップ" },
-  ui: { language: "言語", tapToPlay: "タップして再生", nowPlaying: "再生中", openMenu: "メニューを開く", closeMenu: "メニューを閉じる" },
-  footer: { nightlife: "ギルネのナイトライフ", legal: "法的情報", visit: "アクセス" },
+  ui: { language: "言語", tapToPlay: "タップして再生", nowPlaying: "再生中", openMenu: "メニューを開く", closeMenu: "メニューを閉じる", backToTop: "トップへ戻る", whatsapp: "WhatsAppで連絡" },
+  footer: { nightlife: "ギルネのナイトライフ", legal: "法的情報", visit: "アクセス", explore: "探索", follow: "フォロー" },
 });
 
 export const dictionaries: Record<LocaleCode, Dictionary> = {

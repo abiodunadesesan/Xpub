@@ -210,6 +210,29 @@ interacted with the page. The first tap, key press, scroll or touch starts
 playback wherever they are, and an explicit pause is never overridden by the
 resume watchdog.
 
+## The persistent controls
+
+Three things stay on screen wherever the visitor has scrolled to, all at
+`z-[85]` — above the page, below `SiteLoader` at `z-[90]`, so the first paint
+isn't interrupted by controls fading in under the skeleton.
+
+| Control | Corner | Behaviour |
+| --- | --- | --- |
+| Back to top | bottom-left | Fades in past 600px of scroll. Drives Lenis, not `window.scrollTo`, because Lenis owns the scroll position and would overwrite a native call on its next frame. |
+| WhatsApp | bottom-right | `wa.me`, built in `lib/site.ts` from the same number the visit panel dials. |
+| Music | bottom-right, inset | Sits at `end-20` so the corner itself belongs to WhatsApp; the two share one row instead of stacking. |
+
+`components/floating-actions.tsx` owns the first two together, because they are
+a pair in the layout and neither should be able to drift into the other's
+footprint. All three use logical `start`/`end`, so in the Arabic locale — the
+one RTL locale — they mirror the way the rest of the page does.
+
+One CSS note worth keeping: `html`, not just `body`, carries the dark
+background. Next's flash-of-unstyled-content guard hides the body until the
+stylesheet lands, and the browser paints the canvas behind it — white by
+default. That same canvas is what shows through a rubber-band overscroll, which
+is why the page used to flash white on the way past either end.
+
 ## Checks
 
 ```bash

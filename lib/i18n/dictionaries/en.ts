@@ -245,6 +245,10 @@ export const en: Dictionary = {
     legal: "Legal notice",
     visit: "Visit",
     instagram: "Instagram",
+    facebook: "Facebook",
+    whatsapp: "WhatsApp",
+    explore: "Explore",
+    follow: "Follow",
   },
   ui: {
     language: "Language",
@@ -255,5 +259,7 @@ export const en: Dictionary = {
     listenOnSpotify: "Listen on Spotify",
     openMenu: "Open menu",
     closeMenu: "Close menu",
+    backToTop: "Back to top",
+    whatsapp: "Chat with us on WhatsApp",
   },
 };

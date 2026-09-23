@@ -101,15 +101,21 @@ test.describe("X Pub Girne — premium site", () => {
     await expect(primary).toBeAttached();
     await expect(outline).toBeAttached();
 
-    // The CTA sits inside a <Reveal>, which fades its block in once it enters
-    // the viewport. Reading styles in the same tick as `scrollIntoViewIfNeeded`
-    // samples the animation's first frame and sees opacity 0, so wait for the
-    // reveal to settle before measuring. The assertions below are about
-    // contrast, not about how fast the animation runs.
+    // The CTA sits inside a <Reveal>, which is why this can't read the style
+    // once and be done. Reveal renders an unanimated div until an effect swaps
+    // it for the motion element, and that element *starts* at opacity 0 — so a
+    // single read legitimately catches either end of the sequence: 1 before
+    // hydration, 0 as the animation begins. Only a sample that has stopped
+    // moving means anything, so wait for the value to hold still.
+    const opacityOf = () => primary.evaluate((el) => Number(getComputedStyle(el).opacity));
     await expect
       .poll(
-        async () => Number(await primary.evaluate((el) => getComputedStyle(el).opacity)),
-        { timeout: 10_000 },
+        async () => {
+          const first = await opacityOf();
+          await new Promise((resolve) => setTimeout(resolve, 300));
+          return first === (await opacityOf()) ? first : -1;
+        },
+        { timeout: 20_000 },
       )
       .toBeGreaterThan(0.9);
 

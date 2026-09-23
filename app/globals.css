@@ -50,6 +50,21 @@
 
 html {
   scroll-behavior: auto;
+  /*
+   * The canvas colour, which is not the same thing as the body's.
+   *
+   * Next hides the body until the stylesheet has landed (its flash-of-unstyled
+   * -content guard injects `body{display:none}`), and the browser paints the
+   * canvas behind it — white by default. That same canvas is also what shows
+   * through a rubber-band overscroll at either end of the page. Painting the
+   * dark surface on `html` as well as `body` means the page is never white:
+   * not on first paint, and not while scrolling.
+   *
+   * `color-scheme: dark` is what makes the browser agree, by darkening the
+   * canvas, the scrollbars and the native form controls to match.
+   */
+  background-color: var(--background);
+  color-scheme: dark;
 }
 
 html.lenis,

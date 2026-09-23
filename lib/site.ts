@@ -51,6 +51,15 @@ export const PROFILE_URLS = socials
 export const PHONE_HREF =
   socials.find((social) => social.icon === "phone")?.href ?? "tel:+905338547040";
 
+/**
+ * The venue's WhatsApp, built from the number the visit panel already dials.
+ *
+ * `wa.me` accepts digits only — no `+`, no spaces — so the number is stripped
+ * here rather than written out a second time. Changing the phone number above
+ * therefore moves the dial link, the structured data and this together.
+ */
+export const WHATSAPP_HREF = `https://wa.me/${BUSINESS.telephone.replace(/[^\d]/g, "")}`;
+
 /** Every day the venue is open, for `openingHoursSpecification`. */
 export const OPEN_DAYS = [
   "Monday",
